@@ -1,0 +1,52 @@
+
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-fw pi-id-card"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>Departamentos</b></span>
+    </div>
+    <div class="p-fluid">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="field">
+                <label for="fechaInicio">Fecha de inicio</label>
+                <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" class="p-inputtext p-component" />
+            </div>
+            <div class="field">
+                <label for="fechaFin">Fecha de fin</label>
+                <input id="fechaFin" type="date" [(ngModel)]="fechaFin" class="p-inputtext p-component" />
+            </div>
+            <p-button [raised]="true" severity="success" (click)="onSubmit()" label="Cargar Datos" icon="pi pi-plus"></p-button>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <p-table [value]="dashboardAll" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Departamento</th>
+                <th>Abierto</th>
+                <th>Asignado</th>
+                <th>En Progreso</th>
+                <th>Cerrado</th>
+                <th>Reaperturado</th>
+                <th>Escalado</th>
+                <th>Tiempo de Respuesta</th>
+                <th>Tiempo de Servicio</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td>{{ rowData.DepartamentoNombre }}</td>
+                <td>{{ rowData.Abierto }}</td>
+                <td>{{ rowData.Asignado }}</td>
+                <td>{{ rowData.EnProgreso }}</td>
+                <td>{{ rowData.Cerrado }}</td>
+                <td>{{ rowData.Reaperturado }}</td>
+                <td>{{ rowData.Escalado }}</td>
+                <td>{{ rowData.TiempoRespuestaTotal }}</td>
+                <td>{{ rowData.TiempoServicioTotal }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

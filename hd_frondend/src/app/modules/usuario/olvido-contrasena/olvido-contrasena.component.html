@@ -1,0 +1,57 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="flex flex-column align-items-center justify-content-center">
+        <div
+            style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <div class="text-center mb-5">
+                    <img src="assets/layout/images/logo.png" alt="logo" height="100" class="mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Restablecer Contraseña!</div>
+                </div>
+                <form (ngSubmit)="resetPassword()" [formGroup]="resetPasswordForm">
+
+                    <div class="text-center mb-5">
+                        <label for="password" class="block text-900 text-xl font-medium mb-2">Nueva Contraseña</label>
+                        <input id="password" formControlName="password" type="password" required
+                            class="w-full md:w-30rem mb-5"
+                            style="padding:1rem; border-radius:10px; border: 1px solid #ccc;" />
+                        <small class="p-error block mt-2"
+                            *ngIf="resetPasswordForm.get('password').invalid && (resetPasswordForm.get('password').dirty || resetPasswordForm.get('password').touched)">
+                            <!-- Mensaje para requerido -->
+                            <span *ngIf="resetPasswordForm.get('password').errors?.required">La contraseña es
+                                requerida.</span> <br />
+                            <!-- Mensaje para longitud mínima -->
+                            <span *ngIf="resetPasswordForm.get('password').errors?.['minlength']">
+                                La contraseña debe tener al menos
+                                {{resetPasswordForm.get('password').errors?.minlength.requiredLength}} caracteres.
+                            </span> <br />
+                            <!-- Mensaje para la fortaleza de la contraseña -->
+                            <span *ngIf="resetPasswordForm.get('password').errors?.['weakPassword']">
+                                La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número
+                                y
+                                un carácter especial.
+                            </span><br />
+                        </small>
+
+                        <label for="confirmPassword" class="block text-900 text-xl font-medium mb-2">Confirmar
+                            Contraseña</label>
+                        <input id="confirmPassword" formControlName="confirmPassword" type="password" required
+                            class="w-full md:w-30rem mb-5"
+                            style="padding:1rem; border-radius:10px; border: 1px solid #ccc;" />
+                        <div *ngIf="resetPasswordForm.get('confirmPassword').invalid && (resetPasswordForm.get('confirmPassword').dirty || resetPasswordForm.get('confirmPassword').touched)">
+                            <small *ngIf="!resetPasswordForm.valid" class="p-error block mt-2">
+                                <span>
+                                    Las contraseñas deben coincidir.
+                                </span>
+                            </small>
+                        </div>
+                        <hr />
+                        <p-button icon="pi pi-sign-in" label="Restablecer Contraseña" type="submit"
+                            [disabled]="!resetPasswordForm.valid" styleClass="w-full p-button-lg"
+                            [style]="{ 'border-radius': '10px', 'border': '1px solid #ccc', 'width': '100%', 'max-width': '30rem', 'text-align': 'center' }"></p-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

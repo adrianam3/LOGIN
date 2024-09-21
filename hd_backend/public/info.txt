@@ -1,0 +1,7 @@
+instalación
+
+nodejs
+angular
+pnpm
+
+direccionar a la ruta 

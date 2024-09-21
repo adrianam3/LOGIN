@@ -1,0 +1,105 @@
+<!-- <div class="card card-w-title">
+    <p-button icon="pi pi-angle-double-left" label="Volver" (onClick)="confirmVolver()"></p-button>
+    <p-button *ngIf="persona" [label]="persona.estado === '0' ? 'Activar Persona' : 'Desactivar Persona'"
+        (onClick)="confirmActivarDesactivar(persona)" icon="pi pi-check"
+        [severity]="persona.estado === '0' ? 'success' : 'danger'" [ngStyle]="{ 'float': 'right' }"></p-button>
+</div> -->
+
+<div class="card card-w-title" style="padding: 20px;">
+    <h5>PERSONA</h5>
+    <form *ngIf="persona" [formGroup]="personaForm" (ngSubmit)="onSubmit()">
+        <div class="p-fluid">
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="cedula" class="block mb-2">Cédula: <span class="required">*</span></label>
+                    <input pInputText id="cedula" type="text" formControlName="cedula" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('cedula').invalid && (personaForm.get('cedula').dirty || personaForm.get('cedula').touched)">
+                        <span *ngIf="personaForm.get('cedula').errors?.required">La cédula es requerida.</span>
+                        <span *ngIf="personaForm.get('cedula').errors?.cedulaInvalida">La cédula es inválida.</span>
+                    </small>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="nombres" class="block mb-2">Nombres: <span class="required">*</span></label>
+                    <input pInputText id="nombres" type="text" formControlName="nombres" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('nombres').invalid && (personaForm.get('nombres').dirty || personaForm.get('nombres').touched)">
+                        <span *ngIf="personaForm.get('nombres').errors?.required">El nombre es requerido.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="apellidos" class="block mb-2">Apellidos: <span class="required">*</span></label>
+                    <input pInputText id="apellidos" type="text" formControlName="apellidos" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('apellidos').invalid && (personaForm.get('apellidos').dirty || personaForm.get('apellidos').touched)">
+                        <span *ngIf="personaForm.get('apellidos').errors?.required">El apellido es requerido.</span>
+                    </small>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="direccion" class="block mb-2">Dirección: <span class="required">*</span></label>
+                    <input pInputText id="direccion" type="text" formControlName="direccion" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('direccion').invalid && (personaForm.get('direccion').dirty || personaForm.get('direccion').touched)">
+                        <span *ngIf="personaForm.get('direccion').errors?.required">La dirección es requerida.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="email" class="block mb-2">E-mail: <span class="required">*</span></label>
+                    <input pInputText id="email" type="text" formControlName="email" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('email').invalid && (personaForm.get('email').dirty || personaForm.get('email').touched)">
+                        <span *ngIf="personaForm.get('email').errors?.required">El email es requerido.</span>
+                        <span *ngIf="personaForm.get('email').errors?.email">Ingrese un email válido.</span>
+                    </small>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="telefono" class="block mb-2">Teléfono: <span class="required">*</span></label>
+                    <input pInputText id="telefono" type="text" formControlName="telefono" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('telefono').invalid && (personaForm.get('telefono').dirty || personaForm.get('telefono').touched)">
+                        <span *ngIf="personaForm.get('telefono').errors?.required">El teléfono es requerido.</span>
+                        <span *ngIf="personaForm.get('telefono').errors?.pattern">El teléfono debe contener solo
+                            números.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="celular" class="block mb-2">Celular: <span class="required">*</span></label>
+                    <input pInputText id="celular" type="text" formControlName="celular" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="personaForm.get('celular').invalid && (personaForm.get('celular').dirty || personaForm.get('celular').touched)">
+                        <span *ngIf="personaForm.get('celular').errors?.required">El celular es requerido.</span>
+                        <span *ngIf="personaForm.get('celular').errors?.pattern">El celular debe contener solo
+                            números.</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <p-toolbar>
+        <div class="p-toolbar-group-start"></div>
+        <div *ngIf="persona" class="p-toolbar-group-end">
+            <p-button *ngIf="!persona.idPersona" class="mr-2" icon="pi pi-check"
+                (click)="confirmCrearActualizar('op=insertar')" label="Guardar" severity="success"></p-button>
+            <p-button *ngIf="persona.idPersona" class="mr-2" icon="pi pi-check"
+                (click)="confirmCrearActualizar('op=actualizar')" label="Actualizar"></p-button>
+            <p-button class="mr-2" icon="pi pi-times" (click)="confirmVolver()" label="Cancelar"
+                severity="danger"></p-button>
+        </div>
+    </p-toolbar>
+</div>
+
+<p-confirmDialog header="Confirmación" key="persona" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"
+    [closable]="false" [closeOnEscape]="false" [style]="{width: '450px'}" acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>

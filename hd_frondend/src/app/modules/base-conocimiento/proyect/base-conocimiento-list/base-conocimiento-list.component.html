@@ -1,0 +1,27 @@
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-fw pi-id-card"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>Base de conocimiento</b></span>
+    </div>
+    <div class="p-field">
+        <input id="search" type="text" pInputText placeholder="Buscar por título..." [(ngModel)]="buscar" />
+    </div>
+    <div class="p-field">
+        <p-dropdown [options]="categoriaOpciones" [(ngModel)]="categoriaSeleccionada"
+            placeholder="Seleccione una categoría"></p-dropdown>
+    </div>
+</div>
+<div class="card card-w-title" style="padding: 20px;">
+    <div *ngFor="let categoria of filtrarCategorias(); let i = index">
+        <h5 style="font-weight: bold;">{{ categoria.nombre }}</h5>
+        <div *ngFor="let guia of filtrarGuias(categoria.guias)">
+            <a class="guia-link guia-item" (click)="alternarGuia(guia)">
+                {{ guia.titulo }}
+            </a>
+            <div *ngIf="guia.expandir">
+                <p>{{ guia.contenido }}</p>
+            </div>
+        </div>
+        <hr class="categoria-separator" *ngIf="i < filtrarCategorias().length - 1">
+    </div>
+</div>

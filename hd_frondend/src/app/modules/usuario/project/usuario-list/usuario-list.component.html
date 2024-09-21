@@ -1,0 +1,102 @@
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-user"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>USUARIOS</b></span>
+    </div>
+    <div>
+        <p-button [raised]="true" severity="success" routerLink="/usuario/usuario-form/" label="Nuevo Usuario"
+            icon="pi pi-plus" />
+    </div>
+</div>
+
+<div class="card card-w-title">
+    <p-table #dt [value]="usuariosAll" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['usuario','nombreCompleto','descRol','email','fechaCreacion','fechaModificacion','descEstado']"
+        [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="idUsuario"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros."
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex justify-content-between flex-column sm:flex-row">
+                <p-button icon="pi pi-filter" severity="info" pTooltip="Mostrar filtros" tooltipPosition="top"
+                    (click)="showFilter()" />
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="usuario" style="min-width:5rem; text-align: center;">
+                    Usuario <p-sortIcon field="usuario" />
+                </th>
+                <th pSortableColumn="nombreCompleto" style="min-width:5rem; text-align: center;">
+                    Nombre <p-sortIcon field="nombreCompleto" />
+                </th>
+                <th pSortableColumn="email" style="text-align: center;">
+                    E-mail <p-sortIcon field="email" />
+                </th>
+                <th pSortableColumn="descRol" style="text-align: center;">
+                    Rol <p-sortIcon field="descRol" />
+                </th>
+                <th pSortableColumn="descArea" style="text-align: center;">
+                    &Aacute;rea <p-sortIcon field="descArea" />
+                </th>
+                <th pSortableColumn="fechaCreacion" style="text-align: center;">
+                    Fecha Creaci&oacute;n <p-sortIcon field="fechaCreacion" />
+                </th>
+                <th pSortableColumn="descEstado" style="text-align: center;">
+                    Estado <p-sortIcon field="descEstado" />
+                </th>
+                <th></th>
+            </tr>
+            <tr *ngIf="showSearch">
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="usuario" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="nombreCompleto" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="email" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="descRol" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="descArea" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="fechaCreacion" [showClearButton]="false" />
+                </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="descEstado" [showClearButton]="false" />
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+            <tr>
+                <td style="text-align: center;">{{rowData.usuario}}</td>
+                <td style="text-align: center;">{{rowData.nombreCompleto}}</td>
+                <td style="text-align: center;">{{rowData.email}}</td>
+                <td style="text-align: center;">{{rowData.descRol}}</td>
+                <td style="text-align: center;">{{rowData.descArea}}</td>
+                <td style="text-align: center;">{{rowData.fechaCreacion}}</td>
+                <td style="text-align: center;">{{rowData.descEstado}}</td>
+                <td style="text-align: center;">
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        routerLink="/usuario/usuario-form/{{rowData.idUsuario}}" />
+                    <p-button icon="pi pi-ban" severity="danger" [rounded]="true" [outlined]="true"
+                        (click)="confirmEliminar(rowData)" />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-confirmDialog header key="usuario" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"
+    [closable]="false" [closeOnEscape]="false" [style]="{width: '450px'}" acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>

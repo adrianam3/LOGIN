@@ -1,0 +1,50 @@
+<!-- <div class="card card-w-title">
+    <p-button icon="pi pi-angle-double-left" label="Volver" (onClick)="confirmVolver()"></p-button>
+    <p-button *ngIf="rol" [label]="rol.estado === '0' ? 'Activar Rol' : 'Desactivar Rol'"
+        (onClick)="confirmActivarDesactivar(rol)" icon="pi pi-check"
+        [severity]="rol.estado === '0' ? 'success' : 'danger'" [ngStyle]="{ 'float': 'right' }"></p-button>
+</div> -->
+
+<div class="card card-w-title" style="padding: 20px;">
+    <h5>ROL</h5>
+    <form *ngIf="rol" [formGroup]="rolForm" (ngSubmit)="onSubmit()">
+        <div class="p-fluid">
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="nombreRol" class="block mb-2">Nombre Rol: <span class="required">*</span></label>
+                    <input pInputText id="nombreRol" type="text" formControlName="nombreRol" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="rolForm.get('nombreRol').invalid && (rolForm.get('nombreRol').dirty || rolForm.get('nombreRol').touched)">
+                        <span *ngIf="rolForm.get('nombreRol').errors?.required">El nombre es requerido.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="descripcion" class="block mb-2">Descripción: <span class="required">*</span></label>
+                    <input pInputText id="descripcion" type="text" formControlName="descripcion" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="rolForm.get('descripcion').invalid && (rolForm.get('descripcion').dirty || rolForm.get('descripcion').touched)">
+                        <span *ngIf="rolForm.get('descripcion').errors?.required">La descripción es requerida.</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <p-toolbar>
+        <div class="p-toolbar-group-start"></div>
+        <div *ngIf="rol" class="p-toolbar-group-end">
+            <p-button *ngIf="!rol.idRol" class="mr-2" icon="pi pi-check" (click)="confirmCrearActualizar('op=insertar')"
+                label="Guardar" severity="success"></p-button>
+            <p-button *ngIf="rol.idRol" class="mr-2" icon="pi pi-check"
+                (click)="confirmCrearActualizar('op=actualizar')" label="Actualizar"></p-button>
+            <p-button class="mr-2" icon="pi pi-times" (click)="confirmVolver()" label="Cancelar"
+                severity="danger"></p-button>
+        </div>
+    </p-toolbar>
+</div>
+
+<p-confirmDialog header="Confirmación" key="rol" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"
+    [closable]="false" [closeOnEscape]="false" [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>

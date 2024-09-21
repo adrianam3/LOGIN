@@ -1,0 +1,23 @@
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-fw pi-id-card"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>Tickets</b></span>
+    </div>
+    <div class="p-fluid">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="field">
+                <label for="fechaInicio">Fecha de inicio</label>
+                <input id="fechaInicio" type="date" [(ngModel)]="fechaInicio" class="p-inputtext p-component" />
+            </div>
+            <div class="field">
+                <label for="fechaFin">Fecha de fin</label>
+                <input id="fechaFin" type="date" [(ngModel)]="fechaFin" class="p-inputtext p-component" />
+            </div>
+            <p-button [raised]="true" severity="success" (click)="onSubmit()" label="Cargar Datos" icon="pi pi-plus"></p-button>
+        </div>
+    </div>
+</div>
+
+<div class="card flex justify-content-center">
+    <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+</div>

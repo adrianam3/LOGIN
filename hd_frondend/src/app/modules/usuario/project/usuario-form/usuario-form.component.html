@@ -1,0 +1,96 @@
+<!-- <div class="card card-w-title">
+    <p-button icon="pi pi-angle-double-left" label="Volver" (onClick)="confirmVolver()"></p-button>
+    <p-button *ngIf="usuario" [label]="usuario.estado === '0' ? 'Activar Usuario' : 'Desactivar Usuario'"
+        (onClick)="confirmActivarDesactivar(usuario)" icon="pi pi-check"
+        [severity]="usuario.estado === '0' ? 'success' : 'danger'" [ngStyle]="{ 'float': 'right' }"></p-button>
+</div> -->
+<div class="card card-w-title" style="padding: 20px;">
+    <h5>USUARIO</h5>
+    <form *ngIf="usuario" [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+        <div class="p-fluid">
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="usuario" class="block mb-2">Usuario: <span class="required">*</span></label>
+                    <input pInputText id="usuario" type="text" formControlName="usuario" class="w-full" />
+                    <small class="p-error block mt-2"
+                        *ngIf="usuarioForm.get('usuario').invalid && (usuarioForm.get('usuario').dirty || usuarioForm.get('usuario').touched)">
+                        <span *ngIf="usuarioForm.get('usuario').errors?.required">El usuario es requerido.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="password" class="block mb-2">Contraseña: <span class="required">*</span></label>
+                    <p-password id="password" formControlName="password" placeholder="Contraseña" [toggleMask]="true"
+                        class="w-full"></p-password>
+                    <small class="p-error block mt-2"
+                        *ngIf="usuarioForm.get('password').invalid && (usuarioForm.get('password').dirty || usuarioForm.get('password').touched)">
+                        <span *ngIf="usuarioForm.get('password').errors?.required">La contraseña es requerida.</span>
+                        <!-- Mensaje para longitud mínima -->
+                        <span *ngIf="usuarioForm.get('password').errors?.minlength">
+                            La contraseña debe tener al menos
+                            {{usuarioForm.get('password').errors?.minlength.requiredLength}} caracteres.
+                        </span>
+                        <!-- Mensaje para la fortaleza de la contraseña -->
+                        <span *ngIf="usuarioForm.get('password').errors?.weakPassword">
+                            La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y
+                            un carácter especial.
+                        </span>
+                    </small>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="persona" class="block mb-2">Persona: <span class="required">*</span></label>
+                    <p-dropdown [options]="personas" formControlName="persona" placeholder="Seleccione la Persona"
+                        optionLabel="nombreCompleto" class="w-full" [showClear]="true"></p-dropdown>
+                    <small class="p-error block mt-2"
+                        *ngIf="usuarioForm.get('persona').invalid && (usuarioForm.get('persona').dirty || usuarioForm.get('persona').touched)">
+                        <span *ngIf="usuarioForm.get('persona').errors?.required">La persona es requerida.</span>
+                    </small>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="area" class="block mb-2">Área: <span class="required">*</span></label>
+                    <p-dropdown [options]="areas" formControlName="area" placeholder="Seleccione el Área"
+                        optionLabel="nombre" class="w-full" [showClear]="true"></p-dropdown>
+                    <small class="p-error block mt-2"
+                        *ngIf="usuarioForm.get('area').invalid && (usuarioForm.get('area').dirty || usuarioForm.get('area').touched)">
+                        <span *ngIf="usuarioForm.get('area').errors?.required">El área es requerida.</span>
+                    </small>
+                </div>
+            </div>
+
+            <div class="field grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                    <label for="rol" class="block mb-2">Rol: <span class="required">*</span></label>
+                    <p-dropdown [options]="roles" formControlName="rol" placeholder="Seleccione el Rol"
+                        optionLabel="nombreRol" class="w-full" [showClear]="true"></p-dropdown>
+                    <small class="p-error block mt-2"
+                        *ngIf="usuarioForm.get('rol').invalid && (usuarioForm.get('rol').dirty || usuarioForm.get('rol').touched)">
+                        <span *ngIf="usuarioForm.get('rol').errors?.required">El Rol es requerido.</span>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <p-toolbar>
+        <div class="p-toolbar-group-start"></div>
+        <div *ngIf="usuario" class="p-toolbar-group-end">
+            <p-button *ngIf="!usuario.idUsuario" class="mr-2" icon="pi pi-check"
+                (click)="confirmCrearActualizar('op=insertar')" label="Guardar" severity="success"></p-button>
+            <p-button *ngIf="usuario.idUsuario" class="mr-2" icon="pi pi-check"
+                (click)="confirmCrearActualizar('op=actualizar')" label="Actualizar"></p-button>
+            <p-button class="mr-2" icon="pi pi-times" (click)="confirmVolver()" label="Cancelar"
+                severity="danger"></p-button>
+        </div>
+    </p-toolbar>
+</div>
+
+<p-confirmDialog header="Confirmación" key="usuario" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"
+    [closable]="false" [closeOnEscape]="false" [style]="{width: '450px'}" acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>
+<div class="overlay" *ngIf="loading">
+    <p-progressSpinner strokeWidth="6"></p-progressSpinner>
+</div>
