@@ -70,9 +70,17 @@ export class RolListComponent implements OnInit {
         try {
             const response = await lastValueFrom(this.postData(formData, 'op=eliminar'));
             if (response) {
+                if (response.status !== 'error') {
                 await this.loadRoles(); // Recargar la tabla
                 this.showToast('success', 'Éxito', 'Rol eliminado correctamente.');
+            } else {
+                this.showToast(
+                    'error',
+                    'Error',
+                    response.message
+                );
             }
+        }
         } catch (error) {
             console.error('Error al eliminar la rol', error);
             this.showToast('error', 'Error', 'No se pudo eliminar el rol.');

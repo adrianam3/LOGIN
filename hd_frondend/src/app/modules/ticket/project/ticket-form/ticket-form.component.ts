@@ -298,6 +298,7 @@ export class TicketFormComponent implements OnInit {
             fechaAtualizacion,
             fechaInicioAtencion,
             fechaCreacion,
+            fechaPrimeraRespuesta
         } = data;
         this.ticket = new Ticket();
         this.isEdicion = !!idTicket;
@@ -380,6 +381,7 @@ export class TicketFormComponent implements OnInit {
             fechaAtualizacion: [fechaAtualizacion],
             fechaInicioAtencion: [fechaInicioAtencion],
             fechaCreacion: [fechaCreacion],
+            fechaPrimeraRespuesta: [fechaPrimeraRespuesta]
         });
         // Escuchar cambios en el selector de SLA y actualizar idSla
         const slaControl = this.ticketForm.get('sla');
@@ -395,15 +397,15 @@ export class TicketFormComponent implements OnInit {
         // Escuchar cambios en el selector de Tema de Ayuda y actualizar idTemaAyuda
         const temaAyudaControl = this.ticketForm.get('temaAyuda');
         if (temaAyudaControl) {
-            temaAyudaControl.valueChanges.subscribe((temAyuda) => {
-                const temAyudaId = temAyuda?.idTemaAyuda || temAyuda;
-                this.ticketForm.get('idTemaAyuda').setValue(temAyudaId);
+            temaAyudaControl.valueChanges.subscribe((temaAyuda) => {
+                const temaAyudaId = temaAyuda?.idTemaAyuda || temaAyuda;
+                this.ticketForm.get('idTemaAyuda').setValue(temaAyudaId);
             });
         }
         const temAyudaSeleccionada = this.temasAyuda.find(
             (temaAyuda) => temaAyuda.idTemaAyuda == idTemaAyuda
         );
-        this.ticketForm.get('idTemaAyuda').setValue(temAyudaSeleccionada);
+        this.ticketForm.get('temaAyuda').setValue(temAyudaSeleccionada);
 
         // Escuchar cambios en el selector de Prioridad y actualizar idPrioridad
         this.ticketForm.get('prioridad').valueChanges.subscribe((prioridad) => {

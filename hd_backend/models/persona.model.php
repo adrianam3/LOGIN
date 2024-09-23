@@ -118,15 +118,35 @@ class Persona
         try {
             $con = new ClaseConectar();
             $con = $con->ProcedimientoParaConectar();
-            $cadena = "DELETE FROM `persona` WHERE `idPersona`= $idPersona";
-            if (mysqli_query($con, $cadena)) {
-                return 1;
-            } else {
-                return $con->error;
+
+            // Verificar si existen relaciones con la persona
+            $query = "SELECT COUNT(*) as total FROM usuario WHERE idPersona = $idPersona";
+            $result = mysqli_query($con, $query);
+            $row = mysqli_fetch_assoc($result);
+    
+            if ($row['total'] > 0) {
+                    // devolver un mensaje de error
+                    return [
+                        'status' => 'error',
+                        'message' => 'No se puede eliminar la persona se ha vinculado con usuarios.'
+                    ];
+                } else {
+
+                $cadena = "DELETE FROM `persona` WHERE `idPersona`= $idPersona";
+                if (mysqli_query($con, $cadena)) {
+                    return 1;
+                } else {
+                    return [
+                        'status' => 'error',
+                        'message' => 'Error al intentar eliminar la Persona.'
+                    ];
+                }
             }
         } catch (Exception $th) {
-            http_response_code(500);
-            return $th->getMessage();
+            return [
+                'status' => 'error',
+                'message' => $th->getMessage()
+            ];
         } finally {
             $con->close();
         }

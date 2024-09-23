@@ -93,7 +93,7 @@
                 <ng-container *ngIf="!validarRol.usuario() && ticketForm.get('estadoTicket').value">
                     <div class="col-12 md:col-6 lg:col-6">
                         <div class="p-fluid">
-                            <label for="estadoTicket" class="block mb-2">Estado del Ticket: <span
+                            <!-- <label for="estadoTicket" class="block mb-2">Estado del Ticket: <span
                                     class="required">*</span></label>
                             <p-dropdown [options]="estadoTickets" formControlName="estadoTicket"
                                 placeholder="Seleccione el estado del Ticket" optionLabel="nombre" [showClear]="true"
@@ -102,7 +102,17 @@
                                 *ngIf="ticketForm.get('estadoTicket').invalid && (ticketForm.get('estadoTicket').dirty || ticketForm.get('estadoTicket').touched)">
                                 <span *ngIf="ticketForm.get('estadoTicket').errors?.required">El Estado del ticket es
                                     requerido.</span>
-                            </small>
+                            </small> -->
+                            <label for="estadoTicket" class="block mb-2"><b>Estado del Ticket:</b>
+                            </label>
+                            <!-- <span> {{ ticketForm.get('estadoTicket').value?.nombre }}</span> -->
+                            <input 
+                                id="disabled-input" 
+                                type="text"
+                                pInputText 
+                                [disabled]="true" 
+                                value="{{ ticketForm.get('estadoTicket').value?.nombre }}" />
+
                         </div>
                     </div>
 
@@ -125,7 +135,7 @@
             <div *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
                 class="field grid">
                 <div class="col-12 md:col-6 lg:col-6">
-                    <div class="p-fluid">
+                    <div class="p-fluid" *ngIf="ticketForm.get('idEstadoTicket').value === '1'">
                         <label for="departamentoAgente" class="block mb-2">Departamentos de soporte: <span
                                 class="required">*</span></label>
                         <p-dropdown [options]="departamentoAgentes" formControlName="departamentoAgente"
@@ -138,10 +148,20 @@
                                 soporte es requerido.</span>
                         </small>
                     </div>
+                    <div class="p-fluid" *ngIf="ticketForm && (ticketForm.get('idEstadoTicket').value) !== '1'">
+                        <label for="departamentoAgente" class="block mb-2">Departamentos de soporte: <span
+                                class="required">*</span></label>
+                                <input 
+                                id="disabled-input" 
+                                type="text"
+                                pInputText 
+                                [disabled]="true" 
+                                value="{{ ticketForm.get('departamentoAgente').value?.nombre }}" />
+                    </div>  
                 </div>
                 <div class="col-12 md:col-6 lg:col-6">
-                    <div class="p-fluid">
-                        <label for="agente" class="block mb-2">Agentes: <span class="required">*</span></label>
+                    <div class="p-fluid" *ngIf="ticketForm && (ticketForm.get('idEstadoTicket').value) === '1'">
+                        <label for="agente" class="block mb-2">Agente: <span class="required">*</span></label>
                         <p-dropdown [options]="agentes" formControlName="agente" placeholder="Seleccione un agente"
                             optionLabel="agenteNombreCompleto" [showClear]="true" class="w-full">
                         </p-dropdown>
@@ -151,7 +171,18 @@
                                 requerido.</span>
                         </small>
                     </div>
+                    <div class="p-fluid" *ngIf="ticketForm && (ticketForm.get('idEstadoTicket').value) !== '1'">
+                        <label for="departamentoAgente" class="block mb-2">Agente: <span
+                                class="required">*</span></label>
+                                <input 
+                                id="disabled-input" 
+                                type="text"
+                                pInputText 
+                                [disabled]="true" 
+                                value="{{ ticketForm.get('agente').value?.agenteNombreCompleto }}" />
+                    </div>  
                 </div>
+                
             </div>
 
             <div *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
@@ -172,7 +203,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-6">
                     <label for="temaAyuda" class="block mb-2">Tema de Ayuda: <span class="required">*</span></label>
-                    <p-dropdown [options]="temasAyuda" formControlName="idTemaAyuda" placeholder="Seleccione un Tema de Ayuda"
+                    <p-dropdown [options]="temasAyuda" formControlName="temaAyuda" placeholder="Seleccione un Tema de Ayuda"
                         optionLabel="nombre" [showClear]="true" class="w-full">
                     </p-dropdown>
                     <small class="p-error block mt-2"
@@ -185,7 +216,20 @@
         </div>
     </form>
     <p-toolbar *ngIf="ticket">
-        <div class="p-toolbar-group-start"></div>
+        <div class="p-toolbar-group-start" *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()">
+            <p-button *ngIf="ticketForm.get('idEstadoTicket').value === '3' || ticketForm.get('idEstadoTicket').value === '6' 
+            || ticketForm.get('idEstadoTicket').value === '9'"
+                class="mr-2" icon="pi pi-lock" label="Cerrar Ticket"
+                severity="success"></p-button>
+            <p-button *ngIf="ticketForm.get('idEstadoTicket').value === '3' || ticketForm.get('idEstadoTicket').value === '6'
+            || ticketForm.get('idEstadoTicket').value === '9'"
+                class="mr-2" icon="pi pi-user-edit"  label="Escalar Ticket"
+                severity="help"></p-button>
+                <p-button *ngIf="ticketForm.get('idEstadoTicket').value === '4'"
+                class="mr-2" icon="pi pi-replay"  label="Reaperturar Ticket"
+                severity="warning"></p-button>
+        </div>
+        <div class="p-toolbar-group-start" *ngIf="validarRol.usuario()"></div>
         <div class="p-toolbar-group-end">
             <p-button
                 *ngIf="!ticket.idTicket && !ticketForm.get('fechaCreacion').value && (validarRol.administrador() || validarRol.usuario())"
@@ -214,18 +258,20 @@
     <!-- <p>{{ mensaje?.detalle }}</p> -->
     <div class="formatted-content" [innerHTML]="mensaje?.detalle"></div>
 </div>
-<div *ngIf="ticketForm && ticketForm.get('estadoTicket').value?.nombre !== 'Cerrado'">
-    <div *ngIf="ticketDetalleForm" [formGroup]="ticketDetalleForm" class="chat-container">
-        <textarea class="chat-input " rows="3" formControlName="detalle"
-            placeholder="Escribe una respuesta..."></textarea>
-        <!-- <quill-editor style="background-color: white;" formControlName="detalle"
-            placeholder="Escribe una respuesta..."></quill-editor> -->
-    </div>
-    <p-toolbar *ngIf="ticketForm.get('fechaCreacion').value">
-        <div class="p-toolbar-group-end">
-            <p-button class="mr-2" icon="pi pi-check" (click)="enviarMensaje()" label="Enviar mensaje"></p-button>
+<div *ngIf="validarRol.agente() || validarRol.usuario()">
+    <div *ngIf="ticketForm && ticketForm.get('estadoTicket').value?.nombre !== 'Cerrado'">
+        <div *ngIf="ticketDetalleForm" [formGroup]="ticketDetalleForm" class="chat-container">
+            <!-- <textarea class="chat-input " rows="3" formControlName="detalle"
+                placeholder="Escribe una respuesta..."></textarea> -->
+            <quill-editor style="background-color: white;" formControlName="detalle"
+                placeholder="Escribe una respuesta..."></quill-editor>
         </div>
-    </p-toolbar>
+        <p-toolbar *ngIf="ticketForm.get('fechaCreacion').value">
+            <div class="p-toolbar-group-end">
+                <p-button class="mr-2" icon="pi pi-check" (click)="enviarMensaje()" label="Enviar mensaje"></p-button>
+            </div>
+        </p-toolbar>
+    </div>
 </div>
 <div class="overlay" *ngIf="loading">
     <p-progressSpinner strokeWidth="6"></p-progressSpinner>

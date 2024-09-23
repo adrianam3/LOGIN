@@ -83,9 +83,17 @@ export class UsuarioListComponent {
         try {
             const response = await lastValueFrom(this.postData(formData, 'op=eliminar'));
             if (response) {
+                if (response.status !== 'error') {
                 await this.loadUsuarios(); // Recargar la tabla
                 this.showToast('success', 'Éxito', 'Usuario eliminado correctamente.');
+            }else {
+                this.showToast(
+                    'error',
+                    'Error',
+                    response.message
+                );
             }
+        }
         } catch (error) {
             console.error('Error al eliminar el usuario', error);
             this.showToast('error', 'Error', 'No se pudo eliminar el usuario.');

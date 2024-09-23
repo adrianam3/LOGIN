@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-persona-list',
     templateUrl: './persona-list.component.html',
-    styleUrl: './persona-list.component.scss'
+    styleUrl: './persona-list.component.scss',
 })
 export class PersonaListComponent implements OnInit {
     public personas: any;
@@ -20,15 +20,18 @@ export class PersonaListComponent implements OnInit {
         private http: HttpClient,
         private confirmationService: ConfirmationService,
         private messageService: MessageService,
-        private router: Router,
-    ) { }
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.loadPersonas(); // Llamar al método que carga los datos
     }
 
     postData(data: any, operation: string): Observable<any> {
-        return this.http.post<any>(`${environment.apiUrl}/controllers/persona.controller.php?${operation}`, data);
+        return this.http.post<any>(
+            `${environment.apiUrl}/controllers/persona.controller.php?${operation}`,
+            data
+        );
     }
 
     getPersonas(): Observable<any[]> {
@@ -47,7 +50,7 @@ export class PersonaListComponent implements OnInit {
                 celular: p.celular || 'No proporcionado',
                 telefono: p.telefono || 'No proporcionado',
                 extension: p.extension || 'No proporcionado',
-                descEstado: p.estado === '1' ? 'Activo' : 'Inactivo'
+                descEstado: p.estado === '1' ? 'Activo' : 'Inactivo',
             }));
         } catch (error) {
             console.error('Error al cargar personas', error);
@@ -65,19 +68,33 @@ export class PersonaListComponent implements OnInit {
             message: `¿Estás seguro de que deseas eliminar a ${rowData.nombreCompleto}?`,
             accept: () => {
                 this.eliminarPersona(rowData.idPersona);
-            }
+            },
         });
     }
 
     private async eliminarPersona(idPersona: string): Promise<void> {
         const formData = new FormData();
-        formData.append("idPersona", idPersona);
+        formData.append('idPersona', idPersona);
 
         try {
-            const response = await lastValueFrom(this.postData(formData, 'op=eliminar'));
+            const response = await lastValueFrom(
+                this.postData(formData, 'op=eliminar')
+            );
             if (response) {
-                await this.loadPersonas(); // Recargar la tabla
-                this.showToast('success', 'Éxito', 'Persona eliminada correctamente.');
+                if (response.status !== 'error') {
+                    await this.loadPersonas(); // Recargar la tabla
+                    this.showToast(
+                        'success',
+                        'Éxito',
+                        'Persona eliminada correctamente.'
+                    );
+                } else {
+                    this.showToast(
+                        'error',
+                        'Error',
+                        response.message
+                    );
+                }
             }
         } catch (error) {
             console.error('Error al eliminar la persona', error);
@@ -85,7 +102,11 @@ export class PersonaListComponent implements OnInit {
         }
     }
 
-    public showToast(severity: 'success' | 'error', summary: string, detail: string) {
+    public showToast(
+        severity: 'success' | 'error',
+        summary: string,
+        detail: string
+    ) {
         this.messageService.add({ severity, summary, detail });
     }
 }

@@ -38,6 +38,7 @@ export class EncuestaListComponent implements OnInit {
         try {
             const data = await lastValueFrom(this.getEncuestas());
             console.log(data);
+            if(data){
             this.encuestas = data.map((e) => ({
                 idTicket: e.idTicket,
                 idEncuesta: e.idEncuesta,
@@ -51,6 +52,7 @@ export class EncuestaListComponent implements OnInit {
                 fechaCreacion: e.fechaCreacion,
                 fechaCierre: e.fechaCierre,
             }));
+        }
         } catch (error) {
             console.error('Error al cargar encuestas', error);
         }

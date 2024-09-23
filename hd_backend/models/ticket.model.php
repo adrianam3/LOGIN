@@ -26,8 +26,8 @@ class Ticket
            departamentoAgente.nombre AS departamentoANombre,
            agentePersona.nombres AS agenteNombres,
            agentePersona.apellidos AS agenteApellidos,
-           CONCAT(agentePersona.nombres, ' ', agentePersona.apellidos) AS agenteNombreCompleto 
-           
+           CONCAT(agentePersona.nombres, ' ', agentePersona.apellidos) AS agenteNombreCompleto ,
+           encuesta.idEncuesta   
             FROM `ticket`
             LEFT JOIN `sla` ON ticket.idSla = sla.idSla
             LEFT JOIN `prioridad` ON ticket.idPrioridad = prioridad.idPrioridad
@@ -38,6 +38,7 @@ class Ticket
             LEFT JOIN `departamentoAgente` ON departamentoAgente.idDepartamentoA = ticket.idDepartamentoA
             LEFT JOIN `agente` ON agente.idAgente = AgenteDepartamento.idAgente
             LEFT JOIN `persona` AS agentePersona ON agente.idUsuario = agentePersona.idPersona
+            LEFT JOIN  encuesta as encuesta on encuesta.idTicket=ticket.idTicket
             $sentencia
             ";
         $datos = mysqli_query($con, $cadena);
