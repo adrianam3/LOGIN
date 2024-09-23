@@ -34,10 +34,13 @@ getSla(): Observable<any[]> {
 private async loadSla(): Promise<void> {
   try {
       const data = await lastValueFrom(this.getSla());
+      //console.log(data);
       this.slaAll = data.map((au) => ({
           idSla: au.idSla,
           nombre: au.nombre,
           tiempoRespuesta: au.tiempoRespuesta,
+          idPrioridad: au.idPrioridad,
+          prioridadNombre: au.prioridadNombre,
           descEstado: au.estado === '1' ? 'Activo' : 'Inactivo'
       }));
   } catch (error) {

@@ -14,9 +14,19 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu"
+    <!-- <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <button class="p-link layout-topbar-button" (click)="layoutService.logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>Cerrar Sesión</span>
+        </button>
+    </div> -->
+
+    <div #topbarmenu class="layout-topbar-menu"
+        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}"
+        style="display: flex; align-items: center; justify-content: space-between;">
+        <span> {{ usuario }} </span>
+        <button class="p-link layout-topbar-button" (click)="layoutService.logout()" style="margin-left: 10px;">
             <i class="pi pi-sign-out"></i>
             <span>Cerrar Sesión</span>
         </button>

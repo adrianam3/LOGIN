@@ -10,7 +10,7 @@
 </div>
 <div class="card card-w-title">
     <p-table #dt [value]="slaAll" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['nombre', 'descEstado', 'tiempoRespuesta']" [tableStyle]="{ 'min-width': '45rem' }" [rowHover]="true"
+        [globalFilterFields]="['nombre', 'descEstado', 'tiempoRespuesta','prioridadNombre']" [tableStyle]="{ 'min-width': '45rem' }" [rowHover]="true"
         dataKey="idSla" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros."
         [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
@@ -35,6 +35,9 @@
                 <th pSortableColumn="tiempoRespuesta" style="text-align: center;">
                     Tiempo de respuesta (Horas) <p-sortIcon field="tiempoRespuesta" />
                 </th>
+                <th pSortableColumn="prioridadNombre" style="text-align: center;">
+                    Prioridad <p-sortIcon field="prioridadNombre" />
+                </th>
                 <th></th>
             </tr>
             <tr *ngIf="showSearch">
@@ -47,6 +50,9 @@
                 <th style="text-align: center;">
                     <p-columnFilter type="text" field="tiempoRespuesta" [showClearButton]="false" />
                 </th>
+                <th style="text-align: center;">
+                    <p-columnFilter type="text" field="prioridadNombre" [showClearButton]="false" />
+                </th>
                 <th></th>
             </tr>
         </ng-template>
@@ -55,11 +61,12 @@
                 <td style="text-align: center;">{{rowData.nombre}}</td>
                 <td style="text-align: center;">{{rowData.descEstado}}</td>
                 <td style="text-align: center;">{{rowData.tiempoRespuesta}}</td>
+                <td style="text-align: center;">{{rowData.prioridadNombre}}</td>
                 <td style="text-align: center;">
                     <!-- <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
                         routerLink="/sla/sla-form/{{rowData.idSla}}" /> -->
                     <p-button icon="pi pi-ban" severity="danger" [rounded]="true" [outlined]="true"
-                        (click)="confirmEliminar(rowData)" />
+                        (click)="confirmEliminar(rowData)" pTooltip="Eliminar"/>
                 </td>
             </tr>
         </ng-template>

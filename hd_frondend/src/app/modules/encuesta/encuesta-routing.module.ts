@@ -6,14 +6,23 @@ import { AuthGuard } from 'src/app/demo/components/auth/guard.guard';
 
 const routes: Routes = [
     {
-        path: 'encuesta-list', component: EncuestaListComponent, canActivate: [AuthGuard],
-        data: { expectedRole: ['administrador'] }
+        path: 'encuesta-list',
+        component: EncuestaListComponent,
+        canActivate: [AuthGuard],
+        data: { expectedRole: ['administrador'] },
     },
-    { path: 'encuesta/:codigo', component: EncuestaFormComponent },
+    {
+        path: 'encuesta/:codigo',
+        component: EncuestaFormComponent,
+    },
+    // {
+    //     path: 'encuesta/:codigo', component: EncuestaFormComponent, canActivate: [AuthGuard],
+    //     data: { expectedRole: ['usuario'] }
+    // },
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class EncuestaRoutingModule { }
+export class EncuestaRoutingModule {}

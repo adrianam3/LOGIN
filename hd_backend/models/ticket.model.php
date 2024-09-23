@@ -26,7 +26,8 @@ class Ticket
            departamentoAgente.nombre AS departamentoANombre,
            agentePersona.nombres AS agenteNombres,
            agentePersona.apellidos AS agenteApellidos,
-           CONCAT(agentePersona.nombres, ' ', agentePersona.apellidos) AS agenteNombreCompleto
+           CONCAT(agentePersona.nombres, ' ', agentePersona.apellidos) AS agenteNombreCompleto 
+           
             FROM `ticket`
             LEFT JOIN `sla` ON ticket.idSla = sla.idSla
             LEFT JOIN `prioridad` ON ticket.idPrioridad = prioridad.idPrioridad

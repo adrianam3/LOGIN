@@ -13,10 +13,10 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { EncuestaListComponent } from './project/encuesta-list/encuesta-list.component';
 import { DialogModule } from 'primeng/dialog';
-import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { TableModule } from 'primeng/table';
     ToastModule,
     ConfirmDialogModule,
     TableModule,
+    ProgressSpinnerModule,
 
   ],
   providers: [

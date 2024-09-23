@@ -57,9 +57,9 @@
                 <td style="text-align: center;">{{rowData.descripcion}}</td>
                 <td style="text-align: center;">
                     <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
-                        routerLink="/rol/rol-form/{{rowData.idRol}}" />
+                        routerLink="/rol/rol-form/{{rowData.idRol}}" pTooltip="Editar Rol"/>
                     <p-button icon="pi pi-ban" severity="danger" [rounded]="true" [outlined]="true"
-                        (click)="confirmEliminar(rowData)" />
+                        (click)="confirmEliminar(rowData)" pTooltip="Eliminar Rol"/>
                 </td>
             </tr>
         </ng-template>

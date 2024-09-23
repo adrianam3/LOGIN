@@ -10,7 +10,9 @@ class Sla
     {
         $con = new ClaseConectar();
         $con = $con->ProcedimientoParaConectar();
-        $cadena = "SELECT * FROM `sla`";
+        $cadena = //"SELECT * FROM `sla`";
+            "select s.*, p.nombre prioridadNombre from sla s
+            join prioridad p on s.idPrioridad=p.idPrioridad";
         $datos = mysqli_query($con, $cadena);
         $con->close();
         return $datos;

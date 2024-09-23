@@ -2,10 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { cn } from '@fullcalendar/core/internal-common';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { lastValueFrom, Observable } from 'rxjs';
-import { Ticket } from 'src/app/modules/ticket/project/model/Ticket';
 import { environment } from 'src/environments/environment';
 import { Encuesta } from '../model/Encuesta';
 import { DateService } from 'src/app/modules/Services/date.service';
@@ -13,25 +11,24 @@ import { DateService } from 'src/app/modules/Services/date.service';
 @Component({
     selector: 'app-encuesta-form',
     templateUrl: './encuesta-form.component.html',
-    styleUrl: './encuesta-form.component.scss'
+    styleUrl: './encuesta-form.component.scss',
 })
 export class EncuestaFormComponent implements OnInit {
     public value!: number;
+    public calificacion: number = 0;
     public comentario: string = '';
     public items = Array.from({ length: 10 }, (_, i) => i);
     public activeItem: number = -1;
-    public ticketForm: FormGroup;
+    public encuestaForm: FormGroup;
     public idTicket: number;
-    public ticket: Ticket;
     public idUsuario: string;
     public idRol: string;
     public email: string;
     public nombreCompleto: string;
     public fechaActual: string;
     public encuesta: Encuesta;
-    ticketForm2: FormGroup;
-
-    ticketDetails;
+    public ticketDetails;
+    public loading: boolean = false;
 
     constructor(
         private router: Router,
@@ -39,113 +36,51 @@ export class EncuestaFormComponent implements OnInit {
         private messageService: MessageService,
         private activatedRoute: ActivatedRoute,
         private fb: FormBuilder,
-        private fb2: FormBuilder,
         private http: HttpClient,
         private dateService: DateService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.fechaActual = this.dateService.obtenerFechaActualFormateada();
-        console.log(this.fechaActual);
         this.loadData();
-        this.ticketDetails = {
-            agenteApellidos: "Martínez",
-            agenteNombres: "Pedro",
-            departamentoANombre: "Soporte Compras",
-            descripcion: "Prueba Actualizar",
-            estadoTicketNombre: "Abierto",
-            fechaAtualizacion: "2024-09-13 11:42:29",
-            fechaCierre: null,
-            fechaCreacion: "2024-09-13 06:01:12",
-            fechaInicioAtencion: null,
-            fechaPrimeraRespuesta: null,
-            fechaReapertura: null,
-            fechaUltimaRespuesta: null,
-            idAgente: "9",
-            idDepartamentoA: "2",
-            idEstadoTicket: "1",
-            idPrioridad: "1",
-            idSla: "6",
-            idTemaAyuda: "1",
-            idTicket: "92",
-            idUsuario: "1",
-            idfuenteContacto: "1",
-            personaApellidos: "Pérez Ruiz",
-            personaNombres: "Juan",
-            prioridadNombre: "Normal",
-            resueltoPrimerContacto: "1",
-            slaNombre: "SLA 48 Horas",
-            titulo: "Prueba Actualizar"
-          };
-        this.ticketForm2 = this.fb2.group({
-            agenteApellidos: [{ value: 'Martínez', disabled: true }],
-            agenteNombres: [{ value: 'Pedro', disabled: true }],
-            departamentoANombre: [{ value: 'Soporte Compras', disabled: true }],
-            descripcion: [{ value: 'Prueba Actualizar', disabled: true }],
-            estadoTicketNombre: [{ value: 'Abierto', disabled: true }],
-            fechaAtualizacion: [{ value: '2024-09-13 11:42:29', disabled: true }],
-            fechaCierre: [{ value: null, disabled: true }],
-            fechaCreacion: [{ value: '2024-09-13 06:01:12', disabled: true }],
-            fechaInicioAtencion: [{ value: null, disabled: true }],
-            fechaPrimeraRespuesta: [{ value: null, disabled: true }],
-            fechaReapertura: [{ value: null, disabled: true }],
-            fechaUltimaRespuesta: [{ value: null, disabled: true }],
-            idAgente: [{ value: '9', disabled: true }],
-            idDepartamentoA: [{ value: '2', disabled: true }],
-            idEstadoTicket: [{ value: '1', disabled: true }],
-            idPrioridad: [{ value: '1', disabled: true }],
-            idSla: [{ value: '6', disabled: true }],
-            idTemaAyuda: [{ value: '1', disabled: true }],
-            idTicket: [{ value: '92', disabled: true }],
-            idUsuario: [{ value: '1', disabled: true }],
-            idfuenteContacto: [{ value: '1', disabled: true }],
-            personaApellidos: [{ value: 'Pérez Ruiz', disabled: true }],
-            personaNombres: [{ value: 'Juan', disabled: true }],
-            prioridadNombre: [{ value: 'Normal', disabled: true }],
-            resueltoPrimerContacto: [{ value: '1', disabled: true }],
-            slaNombre: [{ value: 'SLA 48 Horas', disabled: true }],
-            titulo: [{ value: 'Prueba Actualizar', disabled: true }]
-          });
     }
 
     public async loadData() {
-        // this.activatedRoute.params.subscribe(async params => {
-        //     this.idTicket = params['codigo'];
-        //     if (this.idTicket) {
-        //         await this.getTicketByCodigo(this.idTicket);
-        //     }
-        // });
-        this.idTicket = 92;
+        this.activatedRoute.params.subscribe(async (params) => {
+            this.idTicket = params['codigo'];
+            if (this.idTicket) {
+                await this.getTicketByCodigo(this.idTicket);
+            }
+        });
         await this.getTicketByCodigo(this.idTicket);
     }
 
     public confirmVolver() {
         this.confirmationService.confirm({
-            key: 'rol',
+            key: 'encuesta',
             header: 'Cancelar',
-            message: '¿Está seguro de cancelar la Encuesta?',
+            message: '¿Está seguro de cancelar respuesta a la Encuesta?',
             accept: () => {
-                this.router.navigate(['/rol/rol-list']);
+                this.router.navigate(['/ticket/ticket-list']);
             },
-            reject: () => {
-            }
+            reject: () => {},
         });
     }
 
-    public onActiveItemChange(index: number) {
+    public onChangeRaiting(index: number) {
         this.activeItem = index;
+        this.calificacion = index + 1;
         console.log(this.activeItem);
     }
 
     private async getTicketByCodigo(idTicket: number) {
         const formData = new FormData();
-        formData.append("idTicket", idTicket.toString());
+        formData.append('idTicket', idTicket.toString());
         try {
-            const response = await lastValueFrom(this.postData(formData, 'op=uno'));
+            const response = await lastValueFrom(
+                this.postData(formData, 'op=uno')
+            );
             this.formTicket(response);
-            // const agenteSeleccionado = this.agentes.find((agente) => agente.idAgente == response.idAgente)
-            // this.ticketForm.get('agente').setValue(agenteSeleccionado);
-            console.log(response);
         } catch (error) {
             console.error('Error al obtener datos del Ticket', error);
         }
@@ -154,7 +89,18 @@ export class EncuestaFormComponent implements OnInit {
     postData(data: any, operation: string): Observable<any> {
         return this.http.post(
             `${environment.apiUrl}/controllers/ticket.controller.php?${operation}`,
-            data,
+            data
+            // {
+            //     withCredentials: true,
+            //     responseType: 'text'
+            // }
+        );
+    }
+
+    postDataEncuesta(data: any, operation: string): Observable<any> {
+        return this.http.post(
+            `${environment.apiUrl}/controllers/encuesta.controller.php?${operation}`,
+            data
             // {
             //     withCredentials: true,
             //     responseType: 'text'
@@ -163,18 +109,113 @@ export class EncuestaFormComponent implements OnInit {
     }
 
     private formTicket(data: any): FormGroup {
-        const { idTicket, titulo, descripcion,
-            idSla, idPrioridad, idDepartamentoA,
-            idEstadoTicket, idAgente,
-            resueltoPrimerContacto, idfuenteContacto,
-            idTemaAyuda, fechaInicioAtencion,
-            fechaAtualizacion,
-        } = data;
-        this.ticket = new Ticket();
+        this.ticketDetails = {
+            idTicket: data.idTicket,
+            titulo: data.titulo,
+            descripcion: data.descripcion,
+            nombreUsuario: data.personaNombres + ' ' + data.personaApellidos,
+            email: data.email,
+            departamentoA: data.departamentoANombre,
+            estadoTicket: data.estadoTicketNombre,
+            fechaCreacion: data.fechaCreacion,
+            fechaCierre: data.fechaCierre,
+            nombreAgente: data.agenteNombres + ' ' + data.agenteApellidos,
+        };
         // Recuperar idUsuario de localStorage
         this.idUsuario = localStorage.getItem('idUsuario');
         this.email = localStorage.getItem('email');
-        this.nombreCompleto = `${localStorage.getItem('nombres')} ${localStorage.getItem('apellidos')}`;
-        return this.ticketForm;
+        this.nombreCompleto = `${localStorage.getItem(
+            'nombres'
+        )} ${localStorage.getItem('apellidos')}`;
+        this.encuestaForm = this.fb.group({
+            idTicket: [this.idTicket],
+            idUsuario: [this.idUsuario],
+            puntuacion: [this.calificacion],
+            comentarios: [this.comentario],
+            fechaEnvioEncuesta: [this.fechaActual],
+            fechaRespuestaEncuesta: [this.fechaActual],
+        });
+        return this.ticketDetails;
+    }
+
+    public confirmCrear() {
+        this.confirmationService.confirm({
+            key: 'encuesta',
+            header: 'Crear',
+            message: '¿Está seguro de guardar la Encuesta?',
+            accept: () => {
+                this.createEncuesta();
+            },
+        });
+    }
+
+    private async createEncuesta() {
+        this.loading = true;
+        if (this.calificacion === 0) {
+            this.showToast(
+                'warn',
+                'Advertencia',
+                'La calificación debe ser diferente de cero.'
+            );
+            this.loading = false;
+        } else {
+            if (this.encuestaForm.valid) {
+                this.encuestaForm
+                    .get('fechaRespuestaEncuesta')
+                    .setValue(this.fechaActual);
+                this.encuestaForm
+                    .get('fechaEnvioEncuesta')
+                    .setValue(this.fechaActual);
+                this.encuestaForm.get('puntuacion').setValue(this.calificacion);
+                const formData = this.createFormData(this.encuestaForm.value);
+                try {
+                    await lastValueFrom(
+                        this.postDataEncuesta(formData, 'op=insertar')
+                    );
+                    setTimeout(() => {
+                        this.showToast(
+                            'success',
+                            'Éxito',
+                            'La operación se realizó correctamente.'
+                        );
+                    }, 200);
+                    this.router.navigate(['/ticket/ticket-list']);
+                } catch (error) {
+                    console.error('Error:', error);
+                    this.showToast(
+                        'error',
+                        'Error',
+                        'Ocurrió un error al realizar la operación.'
+                    );
+                } finally {
+                    this.loading = false;
+                }
+            } else {
+                this.loading = false;
+                this.showToast(
+                    'error',
+                    'Error',
+                    'Complete los campos obligatorios para guardar.'
+                );
+            }
+        }
+    }
+
+    private showToast(
+        severity: 'success' | 'error' | 'warn',
+        summary: string,
+        detail: string
+    ) {
+        this.messageService.add({ severity, summary, detail });
+    }
+
+    private createFormData(data: any): FormData {
+        const formData = new FormData();
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                formData.append(key, data[key]);
+            }
+        }
+        return formData;
     }
 }

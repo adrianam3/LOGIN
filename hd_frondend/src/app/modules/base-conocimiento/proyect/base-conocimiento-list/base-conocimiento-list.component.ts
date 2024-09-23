@@ -16,6 +16,14 @@ export class BaseConocimientoListComponent implements OnInit {
   private baseConocimientosApi = `${environment.apiUrl}/controllers/categoriasbaseconocimientos.controller.php?op=todos`;
   public baseConocimientosAll: any = [];
 
+//
+displayChatDialog: boolean = false;
+
+  openChatDialog() {
+    this.displayChatDialog = true;
+  }
+
+
   constructor(
     private http: HttpClient
   ) { }
@@ -26,6 +34,7 @@ export class BaseConocimientoListComponent implements OnInit {
 
   getFormatoBaseConocimientos(): void {
     this.http.get<any[]>(this.baseConocimientosApi).subscribe(data => {
+      console.log(data);
       const categoriasMap = {};
       data.forEach(item => {
         if (categoriasMap[item.idCategoria]) {
@@ -38,7 +47,8 @@ export class BaseConocimientoListComponent implements OnInit {
           }
         } else {
           categoriasMap[item.idCategoria] = {
-            nombre: item.nombreCategoria,
+            nombre: item.nombreCategoria, //+ '(' + item.descripcion + ')',
+            nombre1:item.descripcion,
             guias: []
           };
           if (item.BaseConocimientosTitulo && item.BaseConocimientosContenido) {
@@ -70,12 +80,23 @@ export class BaseConocimientoListComponent implements OnInit {
     }
     return this.baseDeConocimiento.filter(categoria => categoria.nombre === this.categoriaSeleccionada);
   }
+  // filtrarGuias(guias: any[]) {
+  //   if (!this.buscar) {
+  //     return guias;
+  //   }
+  //   return guias.filter(guia =>
+  //     guia.titulo.toLowerCase().includes(this.buscar.toLowerCase())
+  //   );
+  // }
   filtrarGuias(guias: any[]) {
     if (!this.buscar) {
       return guias;
     }
+    const busquedaLower = this.buscar.toLowerCase();
+
     return guias.filter(guia =>
-      guia.titulo.toLowerCase().includes(this.buscar.toLowerCase())
+      guia.titulo.toLowerCase().includes(busquedaLower) ||
+      guia.contenido.toLowerCase().includes(busquedaLower)
     );
   }
 }

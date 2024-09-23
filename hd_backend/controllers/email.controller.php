@@ -15,7 +15,7 @@ function configurarMail(PHPMailer $mail, $emailRecibe, $nombreRecibe)
     $mail->Port = 587;
 
     // Emisor y receptor
-    $mail->setFrom('sistemas.imbauto@gmail.com', 'HELPDESK CORPORATION');
+    $mail->setFrom('sistemas.imbauto@gmail.com', 'HELPDESK IMBAUTO');
     $mail->addAddress($emailRecibe, $nombreRecibe);
     $mail->isHTML(true);
     $mail->CharSet = 'UTF-8'; // Asegúrate de que la codificación es UTF-8
@@ -35,7 +35,7 @@ function enviarEmailCrearTicket($emailRecibe, $nombreRecibe, $nombreCreadorTicke
         $mostrarDe = ($nombreRecibe !== $nombreCreadorTicket);
 
         // Asunto y cuerpo del mensaje
-        $mail->Subject = 'Alerta de nuevo ticket - HELPDESK CORPORATION';
+        $mail->Subject = 'Alerta de nuevo ticket - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola $nombreRecibe,<br/>
           $mensaje
@@ -71,7 +71,7 @@ function enviarEmailAgenteAsignado($idTicket, $emailRecibe, $nombreRecibe, $nomb
 
         // Mensaje y asunto
         $mensaje = "Ticket #$idTicket te ha sido asignado por $nombrequienAsignaTicket.<br/>";
-        $mail->Subject = 'Te han asignado un Ticket - HELPDESK CORPORATION';
+        $mail->Subject = 'Te han asignado un Ticket - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola $nombreRecibe,<br/>
           $mensaje
@@ -97,7 +97,7 @@ function enviarEmailRecuperacion($email)
         configurarMail($mail, $email, '');
         $token = generateToken($email);
         $resetLink = "http://localhost:4200/olvido-contrasena?token=$token&usuario=".base64_encode($email);
-        $mail->Subject = 'Restablecer Contraseña - HELPDESK CORPORATION';
+        $mail->Subject = 'Restablecer Contraseña - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola,<br/>
           Haz clic en el siguiente enlace para restablecer tu contraseña:<br/>
@@ -121,9 +121,9 @@ function enviarEmailCrearCuenta($emailRecibe, $nombreRecibe, $password)
         configurarMail($mail, $emailRecibe, $nombreRecibe);
 
         // Mensaje
-        $asunto = "Te han creado una cuenta para la plataforma HELPDESK CORPORATION.<br/>";
+        $asunto = "Te han creado una cuenta para la plataforma HELPDESK IMBAUTO.<br/>";
         $mensaje = "Estas son tus credenciales.<br/>";
-        $mail->Subject = 'Creación de cuenta - HELPDESK CORPORATION';
+        $mail->Subject = 'Creación de cuenta - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola $nombreRecibe,<br/>
           $asunto
@@ -150,7 +150,7 @@ function enviarEmailMensajeDetalleTicket($idTicket, $emailRecibe, $nombreRecibe,
 
         // Mensaje y asunto
         $mensaje = "Se ha añadido un mensaje al Ticket #$idTicket.<br/>";
-        $mail->Subject = 'Actualización de Ticket - HELPDESK CORPORATION';
+        $mail->Subject = 'Actualización de Ticket - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola $nombreRecibe,<br/>
           $mensaje
@@ -175,7 +175,7 @@ function enviarEmailTicketCerrado($idTicket, $emailRecibe, $nombreRecibe)
 
         // Mensaje y asunto
         $mensaje = "Se cerró el Ticket #$idTicket.<br/>";
-        $mail->Subject = 'Ticket Cerrado - HELPDESK CORPORATION';
+        $mail->Subject = 'Ticket Cerrado - HELPDESK IMBAUTO';
         $body = <<<EOT
           Hola $nombreRecibe,<br/>
           $mensaje

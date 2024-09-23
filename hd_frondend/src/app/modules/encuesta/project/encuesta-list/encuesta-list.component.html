@@ -1,13 +1,13 @@
 <div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
     <div style="display: flex; align-items: center;">
-        <i class="pi pi-briefcase"></i>
+        <i class="pi pi-star-fill"></i>
         <span style="font-size: 15px; margin-left: 5px;"><b>ENCUESTAS</b></span>
     </div>
 </div>
 
 <div class="card card-w-title">
     <p-table #dt [value]="encuestas" [rows]="10" [paginator]="true"
-        [globalFilterFields]="['titulo','nombreAgente','departamentoANombre','nombreUsuario','estadoTicketNombre']"
+        [globalFilterFields]="['idTicket', 'titulo','nombreAgente','nombreUsuario','puntuacion', 'comentarios', 'fechaEncuesta']"
         [tableStyle]="{ 'min-width': '75rem' }" [rowHover]="true" dataKey="idEncuesta"
         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} registros."
         [showCurrentPageReport]="true">
@@ -24,23 +24,35 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
+                <th pSortableColumn="idTicket" style="min-width:5rem; text-align: center;">
+                    # Ticket <p-sortIcon field="idTicket" />
+                </th>
                 <th pSortableColumn="titulo" style="min-width:5rem; text-align: center;">
                     Título <p-sortIcon field="titulo" />
                 </th>
                 <th pSortableColumn="nombreAgente" style="min-width:5rem; text-align: center;">
                     Agente <p-sortIcon field="nombreAgente" />
                 </th>
-                <th pSortableColumn="departamentoANombre" style="text-align: center;">
-                    Departamento <p-sortIcon field="departamentoANombre" />
-                </th>
                 <th pSortableColumn="nombreUsuario" style="text-align: center;">
                     Usuario <p-sortIcon field="nombreUsuario" />
                 </th>
-                <th pSortableColumn="estadoTicketNombre" style="text-align: center;">
-                    Estado <p-sortIcon field="estadoTicketNombre" />
+                <th pSortableColumn="puntuacion" style="text-align: center;">
+                    Puntuación <p-sortIcon field="puntuacion" />
+                </th>
+                <th pSortableColumn="comentarios" style="text-align: center;">
+                    Comentarios <p-sortIcon field="comentarios" />
+                </th>
+                <th pSortableColumn="fechaCreacion" style="text-align: center;">
+                    Fecha Ticket <p-sortIcon field="fechaCreacion" />
+                </th>
+                <th pSortableColumn="fechaEncuesta" style="text-align: center;">
+                    Fecha Encuesta <p-sortIcon field="fechaEncuesta" />
                 </th>
             </tr>
             <tr *ngIf="showSearch">
+                <th>
+                    <p-columnFilter type="text" field="idTicket" [showClearButton]="false" />
+                </th>
                 <th>
                     <p-columnFilter type="text" field="titulo" [showClearButton]="false" />
                 </th>
@@ -48,23 +60,32 @@
                     <p-columnFilter type="text" field="nombreAgente" [showClearButton]="false" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="departamentoANombre" [showClearButton]="false" />
-                </th>
-                <th>
                     <p-columnFilter type="text" field="nombreUsuario" [showClearButton]="false" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="estadoTicketNombre" [showClearButton]="false" />
+                    <p-columnFilter type="text" field="puntuacion" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="comentarios" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="fechaCreacion" [showClearButton]="false" />
+                </th>
+                <th>
+                    <p-columnFilter type="text" field="fechaEncuesta" [showClearButton]="false" />
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
             <tr>
-                <td style="text-align: center;">{{rowData.titulo}}</td>
-                <td style="text-align: center;">{{rowData.nombreAgente}}</td>
-                <td style="text-align: center;">{{rowData.departamentoANombre}}</td>
-                <td style="text-align: center;">{{rowData.nombreUsuario}}</td>
-                <td style="text-align: center;">{{rowData.estadoTicketNombre}}</td>
+                <td>{{rowData.idTicket}}</td>
+                <td>{{rowData.titulo}}</td>
+                <td>{{rowData.nombreAgente}}</td>
+                <td>{{rowData.nombreUsuario}}</td>
+                <td>{{rowData.puntuacion}}</td>
+                <td>{{rowData.comentarios}}</td>
+                <td>{{rowData.fechaCreacion}}</td>
+                <td>{{rowData.fechaEncuesta}}</td>
             </tr>
         </ng-template>
     </p-table>
