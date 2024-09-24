@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2024 a las 06:20:56
+-- Tiempo de generación: 25-09-2024 a las 00:29:09
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,8 @@ INSERT INTO `agente` (`idAgente`, `agente`, `descripcion`, `idUsuario`, `idNivel
 (8, 'Agente Soporte 1', '', 4, 1, 1, '2024-09-05 01:42:00', '2024-09-21 00:29:47'),
 (9, 'Agente Soporte 2', '', 5, 1, 1, '2024-09-05 01:42:27', NULL),
 (10, 'Agente Soporte 3', '', 6, 1, 1, '2024-09-05 01:42:34', NULL),
-(15, 'Agente adolfo.merlo', '', 36, 1, 1, '2024-09-22 19:46:42', '2024-09-22 19:47:03');
+(15, 'Agente adolfo.merlo', '', 36, 1, 1, '2024-09-22 19:46:42', '2024-09-22 19:47:03'),
+(16, 'miguel.arcos', '', 38, 1, 1, '2024-09-23 22:46:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -311,6 +312,13 @@ CREATE TABLE `encuesta` (
   `fechaRespuestaEncuesta` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `encuesta`
+--
+
+INSERT INTO `encuesta` (`idEncuesta`, `idTicket`, `idUsuario`, `puntuacion`, `comentarios`, `fechaEnvioEncuesta`, `fechaRespuestaEncuesta`) VALUES
+(1, 123, 9, 9, 'El soporte se demoro y el cliente al que debia entregar la proforma se fue enojado ', '2024-09-23 22:39:38', '2024-09-23 22:39:38');
+
 -- --------------------------------------------------------
 
 --
@@ -440,7 +448,7 @@ CREATE TABLE `persona` (
 INSERT INTO `persona` (`idPersona`, `cedula`, `nombres`, `apellidos`, `direccion`, `telefono`, `extension`, `celular`, `email`, `estado`, `fechaCreacion`, `fechaModificacion`) VALUES
 (1, '0401744628', 'Adrian Merlo', 'Administrador', 'Av. Siempre Viva 123', '1234567', '', '0987654321', 'adrian.merlo.am3+1@gmail.com', 1, '2023-08-15 10:00:00', '2024-09-21 00:49:39'),
 (2, '0987654321', 'Sebastian Cedillo', 'Coordinador', 'Calle Falsa 456', '2345678', '102', '0981234567', 'adrian.merlo.am3+2@gmail.com', 1, '2023-08-16 10:00:00', '2023-09-01 10:00:00'),
-(3, '1122334455', 'Erick Guaman', 'Usuario', 'Pasaje Los Sauces 789', '3456781', '', '0976543210', 'adrian.merlo.am3+3@gmail.com', 0, '2023-08-17 10:00:00', '2024-09-02 09:31:44'),
+(3, '1122334455', 'Erick Guaman', 'Usuario', 'Pasaje Los Sauces 789', '3456781', '', '0976543210', 'adrian.merlo.am3+33@gmail.com', 0, '2023-08-17 10:00:00', '2024-09-02 09:31:44'),
 (4, '5566778899', 'Cristian Riofrio', 'Usuario', 'Av. Los Cedros 101', '4567890', '104', '0965432109', 'adrian.merlo.am3+4@gmail.com', 1, '2023-08-18 10:00:00', '2023-09-01 10:00:00'),
 (5, '6677889900', 'Mario farinango', 'usuario', 'Calle Los Pinos 202', '5678901', '105', '0954321098', 'adrian.merlo.am3+5@gmail.com', 1, '2023-08-19 10:00:00', '2023-09-01 10:00:00'),
 (6, '7788990011', 'Laura', 'Fernández', 'Av. Los Robles 303', '6789012', '', '0943210987', 'adrian.merlo.am3+8@gmail.com', 0, '2023-08-20 10:00:00', '2024-09-02 09:33:46'),
@@ -454,7 +462,8 @@ INSERT INTO `persona` (`idPersona`, `cedula`, `nombres`, `apellidos`, `direccion
 (27, '0401744628', 'Erika', 'Paz', 'Falle falsa 153', '4544', '', '19239022003', 'adrian.merlo.am3+3@gmail.com', 1, '2024-09-21 00:45:30', '2024-09-21 02:14:58'),
 (28, '1002255170', 'Adrian', 'Merlo', 'Falle falsa 1153', '3244322', '', '0946565666', 'adrian_am3@hotmail.com', 1, '2024-09-21 06:38:57', NULL),
 (29, '1002696951', 'XAVIER', 'CANGAS', 'IBARRA', '0999101191', '', '0999101191', 'adrian.merlo.am3+20@gmail.com', 1, '2024-09-22 18:23:09', '2024-09-22 18:27:10'),
-(30, '1002255170', 'Adolfo', 'Merlo', 'Ibarra Sucre y jf. Cevallos', '062550500', '', '0999101191', 'adrian.merlo.am3+21@gmail.com', 1, '2024-09-22 19:26:43', NULL);
+(30, '1002255170', 'Adolfo', 'Merlo', 'Ibarra Sucre y jf. Cevallos', '062550500', '', '0999101191', 'adrian.merlo.am3+21@gmail.com', 1, '2024-09-22 19:26:43', NULL),
+(31, '1002255170', 'MIGUEL ', 'ARCOS', 'IBARRA', '062550500', '', '0999101191', 'adrian.merlo.am3+22@gmail.com', 1, '2024-09-23 22:44:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -564,7 +573,39 @@ INSERT INTO `temaayuda` (`idTemaAyuda`, `nombre`, `descripcion`, `idTemaPadre`, 
 (4, 'Excel', 'Aplicación de hoja de cálculo', 3, 1, '2024-09-04 07:35:44', NULL),
 (5, 'Redes', 'Temas relacionados con redes', NULL, 1, '2024-09-04 07:35:44', NULL),
 (6, 'Cableado Estructurado', 'Infraestructura de red física', 5, 1, '2024-09-04 07:35:44', NULL),
-(7, 'Telefonía IP', 'Tecnología de telefonía por internet', 5, 1, '2024-09-04 07:35:44', NULL);
+(7, 'Telefonía IP', 'Tecnología de telefonía por internet', 5, 1, '2024-09-04 07:35:44', NULL),
+(8, 'Actividades Sistemas', 'Actividades Sistemas', NULL, 1, '2024-09-24 03:36:33', NULL),
+(9, 'Software / KAIROS / Solicitud', 'Software / KAIROS / Solicitud', NULL, 1, '2024-09-24 03:37:54', NULL),
+(10, 'Software / KAIROS / Taller', 'Software / KAIROS / Taller', NULL, 1, '2024-09-24 03:37:54', NULL),
+(11, 'Software / KAIROS / Vehiculos', 'Software / KAIROS / Vehiculos', NULL, 1, '2024-09-24 03:37:54', NULL),
+(12, 'Software / Mantenimineto Software', 'Software / Mantenimineto Software', NULL, 1, '2024-09-24 03:37:54', NULL),
+(13, 'Software / Navegadores Internet', 'Software / Navegadores Internet', NULL, 1, '2024-09-24 03:37:54', NULL),
+(14, 'Software / Ofimatica', 'Software / Ofimatica', NULL, 1, '2024-09-24 03:37:54', NULL),
+(15, 'Software / Ofimatica / Excel', 'Software / Ofimatica / Excel', NULL, 1, '2024-09-24 03:37:54', NULL),
+(16, 'Software / Ofimatica / Firma Electronica', 'Software / Ofimatica / Firma Electronica', NULL, 1, '2024-09-24 03:37:54', NULL),
+(17, 'Software / Ofimatica / Libre Office', 'Software / Ofimatica / Libre Office', NULL, 1, '2024-09-24 03:37:54', NULL),
+(18, 'Software / Ofimatica / Office 365', 'Software / Ofimatica / Office 365', NULL, 1, '2024-09-24 03:37:54', NULL),
+(19, 'Software / Ofimatica / One Drive', 'Software / Ofimatica / One Drive', NULL, 1, '2024-09-24 03:37:54', NULL),
+(20, 'Software / Ofimatica / Otros', 'Software / Ofimatica / Otros', NULL, 1, '2024-09-24 03:37:54', NULL),
+(21, 'Software / Ofimatica / Outlook', 'Software / Ofimatica / Outlook', NULL, 1, '2024-09-24 03:37:54', NULL),
+(22, 'Software / Ofimatica / SharePoint', 'Software / Ofimatica / SharePoint', NULL, 1, '2024-09-24 03:37:54', NULL),
+(23, 'Software / Ofimatica / Teams', 'Software / Ofimatica / Teams', NULL, 1, '2024-09-24 03:37:54', NULL),
+(24, 'Software / Ofimatica / Word.', 'Software / Ofimatica / Word.', NULL, 1, '2024-09-24 03:37:54', NULL),
+(26, 'Software / Portal Facturacion Electronica', 'Software / Portal Facturacion Electronica', NULL, 1, '2024-09-24 03:37:54', NULL),
+(27, 'Software / Reloj Biometrico', 'Software / Reloj Biometrico', NULL, 1, '2024-09-24 03:37:54', NULL),
+(28, 'Software / S.A.P', 'Software / S.A.P', NULL, 1, '2024-09-24 03:37:54', NULL),
+(29, 'Software / S.A.P / SD SAP', 'Software / S.A.P / SD SAP', NULL, 1, '2024-09-24 03:37:54', NULL),
+(30, 'Software / SAP GM', 'Software / SAP GM', NULL, 1, '2024-09-24 03:37:54', NULL),
+(31, 'Software / SGC SISTEMA GESTION COMERCIAL / SGC HYUNDAI', 'Software / SGC SISTEMA GESTION COMERCIAL / SGC HYUNDAI', NULL, 1, '2024-09-24 03:37:54', NULL),
+(32, 'Software / SGC SISTEMA GESTION COMERCIAL / SGC KIA', 'Software / SGC SISTEMA GESTION COMERCIAL / SGC KIA', NULL, 1, '2024-09-24 03:37:55', NULL),
+(33, 'Software / Taller', 'Software / Taller', NULL, 1, '2024-09-24 03:37:55', NULL),
+(34, 'Software / Taller / Audatex', 'Software / Taller / Audatex', NULL, 1, '2024-09-24 03:37:55', NULL),
+(35, 'Software / Taller / GDISS', 'Software / Taller / GDISS', NULL, 1, '2024-09-24 03:37:55', NULL),
+(36, 'Software / Taller / GDS 2', 'Software / Taller / GDS 2', NULL, 1, '2024-09-24 03:37:55', NULL),
+(37, 'Software / Taller / GM Global Connect', 'Software / Taller / GM Global Connect', NULL, 1, '2024-09-24 03:37:55', NULL),
+(38, 'Software / Taller / TechLine', 'Software / Taller / TechLine', NULL, 1, '2024-09-24 03:37:55', NULL),
+(39, 'Software / VPN (Creacion Configuracion)', 'Software / VPN (Creacion Configuracion)', NULL, 1, '2024-09-24 03:37:55', NULL),
+(40, 'Software / Windows', 'Software / Windows', NULL, 1, '2024-09-24 03:37:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -610,16 +651,218 @@ INSERT INTO `ticket` (`idTicket`, `titulo`, `descripcion`, `idSla`, `idPrioridad
 (99, 'Test QA', 'Test QA Test QA Test QA', 1, 1, 28, 8, 1, 1, 1, 1, '2024-09-20 06:18:45', 4, '2024-09-20 06:25:25', NULL, '2024-09-20 08:24:05', NULL, NULL, '2024-09-20 08:24:05'),
 (103, 'ticket prueba cambios', 'ticket prueba cambios ticket prueba cambios', 1, 1, 33, 2, 3, 1, 1, 1, '2024-09-21 02:20:23', 2, '2024-09-21 03:27:22', NULL, '2024-09-21 03:40:08', NULL, NULL, '2024-09-21 03:39:13'),
 (104, 'ticket prueba 002', 'ticket prueba 002 ticket prueba 002', 1, 1, 33, 1, 3, 1, 1, 1, '2024-09-21 03:14:13', 4, '2024-09-21 03:17:49', NULL, '2024-09-21 03:23:36', NULL, NULL, '2024-09-21 03:23:36'),
-(105, 'Test coordinador', 'tt', 1, 1, 33, 15, 1, 1, 1, 1, '2024-09-21 03:29:51', 2, NULL, NULL, '2024-09-22 22:27:03', NULL, NULL, NULL),
+(105, 'Test coordinador', 'tt', 1, 1, 33, 9, 1, 1, 1, 1, '2024-09-21 03:29:51', 9, '2024-09-24 10:25:50', '0000-00-00 00:00:00', '2024-09-24 12:49:42', '2024-09-24 12:49:42', NULL, '2024-09-24 12:49:24'),
 (106, 'test ticket abierto', 'test ticket abierto test ticket abierto test ticket abierto', 1, 1, 34, 8, 1, 1, 1, 1, '2024-09-21 06:43:08', 4, '2024-09-21 06:46:29', NULL, '2024-09-21 06:47:45', NULL, NULL, '2024-09-21 06:47:45'),
 (107, 'a', 'a', 1, 1, 1, 1, 2, 1, 1, 1, '2024-09-21 07:03:18', 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(108, 'Problema de internet', 'Problema con el internet.', 1, 1, 9, 8, 1, 1, 1, 1, '2024-09-21 18:32:27', 1, NULL, NULL, '2024-09-21 21:52:03', NULL, NULL, NULL),
+(108, 'Problema de internet', 'Problema con el internet.', 1, 1, 9, 15, 1, 1, 1, 1, '2024-09-21 18:32:27', 3, '2024-09-23 19:16:02', '2024-09-23 19:12:19', '2024-09-24 14:17:39', '0000-00-00 00:00:00', NULL, NULL),
 (109, 'Problema del sistema ', 'Problema con el sistema', 1, 1, 9, 9, 1, 1, 1, 1, '2024-09-21 21:55:34', 1, '2024-09-21 21:59:42', NULL, '2024-09-21 21:59:42', NULL, NULL, NULL),
 (110, 'AYUDA CON INFORMACION CONTABLE ', 'Estimado Adrian, debido al reposo médico de Fernanda Naranjo, y conforme lo comentado en tu oficina, solicito tu ayuda con:\r\n\r\nque los correos enviados a contabilidad@laplaza.ec lleguen también a asistentecontable@laplaza.ec\r\nEnvió de las hojas electrónicas del sistema DATALIFE a Viviana Yepez, con la fecha del mes de este año que tú poseas\r\nActivar a Jeny Burbano la opción de poner límite de crédito a clientes en el sistema KAIROS\r\n\r\nEstoy copiando este email a gerencia general y talento humano como respaldo. Agradezco tu gentil ayuda\r\nSaludos,', 1, 1, 10, 9, 1, 1, 1, 1, '2024-09-21 23:08:34', 2, NULL, NULL, '2024-09-22 02:13:23', NULL, NULL, NULL),
-(111, 'firma electronica en documento', 'Favor su ayuda con la firma electrónica en el documento que se adjunto al correo se encuentra autorizado por Gerencia. Gracias', 1, 1, 10, NULL, NULL, 1, 1, 1, '2024-09-21 23:13:26', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(111, 'firma electronica en documento', 'Favor su ayuda con la firma electrónica en el documento que se adjunto al correo se encuentra autorizado por Gerencia. Gracias', 1, 1, 10, 15, 1, 1, 2, 1, '2024-09-21 23:13:26', 2, NULL, '2024-09-23 07:40:10', '2024-09-23 07:40:10', NULL, NULL, NULL),
 (112, 'no tengo acceso a la pantalla de siembras', 'Se reviso la opción en el sistema Kairos y nos e tienen acceso a la funcionalidad de siembras, favor su ayuda con el acceso, el mimso se encuentra autorizado previamente por correo electrónico por la jefatura inmendiata. ', 1, 1, 10, 9, 1, 1, 1, 1, '2024-09-21 23:16:20', 3, '2024-09-22 02:14:11', NULL, '2024-09-22 02:14:11', NULL, NULL, NULL),
 (113, 'Compartir información tablas dinamicas', 'De: Cristian Pazmiño\r\nEnviado: viernes, 6 de septiembre de 2024 15:32\r\nPara: Jhonny Muñoz ; Adrián Merlo\r\nCc: Santiago Amador ; VIVIANA YEPEZ\r\nAsunto: RE: AYUDA CON INFORMACION CONTABLE\r\n\r\nAutorizado,Adrian enviale a Viviana sin problema, muchas gracias.\r\n\r\nSaludos Cordiales,\r\n\r\nCristian Pazmiño\r\n\r\nTalento Humano\r\n\r\nDe: Jhonny Muñoz\r\nEnviado: jueves, 5 de septiembre de 2024 19:33\r\nPara: Adrián Merlo ; Cristian Pazmiño\r\nCc: Santiago Amador ; VIVIANA YEPEZ\r\nAsunto: Re: AYUDA CON INFORMACION CONTABLE Estimado cristian. Favor tu autorización. Necesitamos hacer ese cierre de roles hasta la fecha máxima.permitida\r\n\r\nSaludos,\r\n\r\nDe: Adrián Merlo\r\nEnviado: jueves, 5 de septiembre de 2024 17:06\r\nPara: Jhonny Muñoz ; Cristian Pazmiño\r\nCc: Santiago Amador ; VIVIANA YEPEZ\r\nAsunto: Re: AYUDA CON INFORMACION CONTABLE Estimado Jonny,\r\nSegún lo solicitado se procedió con lo siguiente:\r\n\r\nSe realiza el renio de correo contabilidad@laplaza.ec para lleguen también a asistentecontable@laplaza.ec ( realizado ayer a las 18:00)\r\nSe activa el limite de crédito para el usuario de Jenny Burbano.\r\nEstimado Cristian,\r\nFavor confirmar la siguiente solicitud.\r\n\r\nEnvió de las hojas electrónicas del sistema DATALIFE a Viviana Yepez, con la fecha del mes de este año que tú poseas\r\n      En caso que requieran algún acceso adicional a datalife para Viviana, favor comunicar por este medio. De antemano, gracias.\r\n\r\n\r\nSaludos Cordiales,\r\n\r\n\r\nDe: Jhonny Muñoz\r\nEnviado: miércoles, 4 de septiembre de 2024 17:34\r\nPara: Adrián Merlo\r\nCc: Santiago Amador ; Cristian Pazmiño ; VIVIANA YEPEZ\r\nAsunto: AYUDA CON INFORMACION CONTABLE Estimado Adrian, debido al reposo médico de Fernanda Naranjo, y conforme lo comentado en tu oficina, solicito tu ayuda con:\r\n\r\nque los correos enviados a contabilidad@laplaza.ec lleguen también a asistentecontable@laplaza.ec\r\nEnvió de las hojas electrónicas del sistema DATALIFE a Viviana Yepez, con la fecha del mes de este año que tú poseas\r\nActivar a Jeny Burbano la opción de poner límite de crédito a clientes en el sistema KAIROS\r\n\r\nEstoy copiando este email a gerencia general y talento humano como respaldo. Agradezco tu gentil ayuda\r\nSaludos,', 1, 1, 10, 15, 1, 1, 1, 1, '2024-09-21 23:30:13', 3, '2024-09-22 19:57:10', NULL, '2024-09-22 19:57:10', NULL, NULL, NULL),
-(114, 'Desbloquear rol de agosto Datalife', 'Se solicita realizar la apertura del rol del mes de agosto en Datalife', 1, 1, 10, 8, 1, 1, 1, 1, '2024-09-21 23:32:39', 4, '2024-09-22 20:32:10', NULL, '2024-09-22 21:00:14', NULL, NULL, '2024-09-22 21:00:14');
+(114, 'Desbloquear rol de agosto Datalife', 'Se solicita realizar la apertura del rol del mes de agosto en Datalife', 1, 1, 10, 8, 1, 1, 1, 1, '2024-09-21 23:32:39', 4, '2024-09-22 20:32:10', NULL, '2024-09-22 21:00:14', NULL, NULL, '2024-09-22 21:00:14'),
+(115, 'prueba prueba ', 'prueba prueba \r\nprueba prueba prueba ', 1, 1, 9, 15, 1, 1, 4, 1, '2024-09-23 07:48:03', 2, NULL, '2024-09-23 07:51:08', '2024-09-23 08:06:18', NULL, NULL, NULL),
+(116, 'pruebaaaa 22222', 'pruebaaaa 22222 ', 1, 1, 9, NULL, NULL, 1, 1, 1, '2024-09-23 08:01:04', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(117, 'Impresora no incia', 'Despues del corte de energa electrica la imrpesar ano incia se queda en un mensaje que dice error fatal contacte con sopore ', 1, 1, 9, 15, 1, 1, 1, 1, '2024-09-23 21:50:17', 3, '2024-09-23 22:21:17', '2024-09-23 22:18:49', '2024-09-23 22:22:15', NULL, NULL, NULL),
+(118, 'Pagina del SRI No se abre', 'Al abrir la pagina del SRI se queda en blanco\r\n', 1, 1, 9, 15, 1, 1, 1, 1, '2024-09-23 21:53:06', 4, '2024-09-23 22:26:11', '0000-00-00 00:00:00', '2024-09-23 22:26:11', '0000-00-00 00:00:00', NULL, '2024-09-24 13:05:19'),
+(119, 'solicitud de cambio de teclado ', 'El teclado que tengo le falta una tecla, favor su ayuda reeemplazandolo \r\n', 1, 1, 9, 15, 1, 1, 1, 1, '2024-09-23 21:55:09', 3, '2024-09-24 13:07:19', '2024-09-24 13:06:41', '2024-09-24 13:07:19', '0000-00-00 00:00:00', NULL, NULL),
+(120, 'Acceso a karedex de productos en Kairos', 'FAvor su ayuada asignando el acceso a revisar el kardex de un producto en kairos, para el usuario Pepito Perez, la solicitud se encuentra autorizadada por el jefe inmediato , la autorizacipon se hizo llegar al correo electrónico', 1, 1, 9, NULL, NULL, 1, 1, 1, '2024-09-23 21:56:58', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(121, 'resetear clave CRM', 'Favor su ayuda con el reseteo de la clave de HubSpot CRM', 1, 1, 9, NULL, NULL, 1, 1, 1, '2024-09-23 22:01:59', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(122, 'Problema de internet', 'Despues del corte de energía electrica, no tenenmos internet en la agencia Tulcan . ', 1, 1, 9, NULL, NULL, 1, 1, 1, '2024-09-23 22:16:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(123, 'atasco en impresora de ventas', 'sale un mensaje de atasco de hoja en la impresora y no permite continuar ', 1, 1, 9, 15, 1, 1, 1, 1, '2024-09-23 22:32:48', 4, '2024-09-23 22:34:47', '0000-00-00 00:00:00', '2024-09-23 22:35:33', NULL, NULL, NULL),
+(124, 'Fallo de Conexión a Internet', 'El usuario no tiene acceso a internet desde su estación de trabajo.', 1, 1, 1, NULL, NULL, 1, 1, 0, '2024-09-24 17:44:07', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(125, 'Problema con impresora', 'La impresora del tercer piso está fuera de servicio.', 1, 2, 2, NULL, NULL, 2, 2, 0, '2024-09-24 17:44:07', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(126, 'Solicitud de nuevo software', 'Usuario solicita instalación de software de edición gráfica.', 2, 3, 3, NULL, NULL, 3, 3, 0, '2024-09-24 17:44:07', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(137, 'Error al enviar correos', 'El usuario no puede enviar correos desde su cliente de correo.', 1, 1, 9, 15, 1, 1, 1, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(138, 'Problemas con el servidor', 'El servidor de archivos está fuera de línea.', 2, 1, 9, 15, 1, 1, 2, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(139, 'Solicitud de actualización de hardware', 'Se solicita la actualización de la memoria RAM de un equipo.', 1, 3, 9, 15, 1, 1, 3, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(140, 'Problema con el acceso remoto', 'El usuario no puede acceder de manera remota al sistema.', 2, 1, 9, 15, 1, 1, 4, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(141, 'Solicitud de nueva cuenta de usuario', 'El usuario requiere una cuenta nueva para acceso a los sistemas.', 1, 2, 9, 15, 1, 1, 5, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(142, 'Fallo de conexión a VPN', 'El usuario no puede conectarse a la VPN de la empresa.', 2, 1, 9, 15, 1, 1, 6, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(143, 'Problema con impresora', 'La impresora no responde a los trabajos enviados.', 1, 3, 9, 15, 1, 1, 7, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(144, 'Solicitud de licencia de software', 'El usuario requiere una nueva licencia de Office.', 2, 2, 9, 15, 1, 1, 8, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(145, 'Error en el sistema de gestión', 'El sistema de gestión no está procesando transacciones.', 1, 1, 9, 15, 1, 1, 9, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(146, 'Solicitud de alta de equipo', 'El usuario requiere un equipo nuevo para la nueva oficina.', 1, 2, 9, 15, 1, 1, 10, 0, '2024-09-24 17:57:30', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(147, 'Error de inicio de sesión', 'El usuario no puede iniciar sesión en su computadora.', 1, 3, 9, 15, 1, 1, 1, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(148, 'Problema con la VPN', 'La conexión VPN se cae frecuentemente.', 1, 3, 9, 15, 1, 1, 2, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(149, 'Fallo de impresora', 'La impresora del segundo piso está fuera de servicio.', 1, 3, 9, 15, 1, 1, 3, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(150, 'Lentitud en la red', 'La red está excepcionalmente lenta desde ayer.', 1, 3, 9, 15, 1, 1, 4, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(151, 'Software no responde', 'El software de contabilidad no abre.', 1, 3, 9, 15, 1, 1, 5, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(152, 'Actualización de antivirus', 'El antivirus necesita ser actualizado urgentemente.', 1, 3, 9, 15, 1, 1, 1, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(153, 'Acceso a recursos compartidos', 'El usuario no tiene acceso a los recursos compartidos.', 1, 3, 9, 15, 1, 1, 2, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(154, 'Problema de correo electrónico', 'No se pueden enviar correos desde Outlook.', 1, 3, 9, 15, 1, 1, 3, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(155, 'Error de licencia de software', 'La licencia de software ha expirado.', 1, 3, 9, 15, 1, 1, 4, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(156, 'Problema de hardware', 'El disco duro está haciendo un ruido extraño.', 1, 3, 9, 15, 1, 1, 5, 0, '2024-09-24 18:55:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(157, 'Error de inicio de sesión', 'El usuario no puede iniciar sesión en su computadora.', 1, 3, 9, 15, 1, 1, 1, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(158, 'Problema con la VPN', 'La conexión VPN se cae frecuentemente.', 1, 3, 9, 15, 1, 1, 2, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(159, 'Fallo de impresora', 'La impresora del segundo piso está fuera de servicio.', 1, 3, 9, 15, 1, 1, 3, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(160, 'Lentitud en la red', 'La red está excepcionalmente lenta desde ayer.', 1, 3, 9, 15, 1, 1, 4, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(161, 'Software no responde', 'El software de contabilidad no abre.', 1, 3, 9, 15, 1, 1, 5, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(162, 'Actualización de antivirus', 'El antivirus necesita ser actualizado urgentemente.', 1, 3, 9, 15, 1, 1, 1, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(163, 'Acceso a recursos compartidos', 'El usuario no tiene acceso a los recursos compartidos.', 1, 3, 9, 15, 1, 1, 2, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(164, 'Problema de correo electrónico', 'No se pueden enviar correos desde Outlook.', 1, 3, 9, 15, 1, 1, 3, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(165, 'Error de licencia de software', 'La licencia de software ha expirado.', 1, 3, 9, 15, 1, 1, 4, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(166, 'Problema de hardware', 'El disco duro está haciendo un ruido extraño.', 1, 3, 9, 15, 1, 1, 5, 0, '2024-09-24 19:01:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(167, 'Problema con el servidor', 'El servidor principal está caído.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(168, 'Correo no sincroniza', 'Los correos no se están sincronizando con el servidor.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(169, 'Fallo de disco duro', 'El disco duro ha fallado en uno de los servidores.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(170, 'Problema de autenticación', 'Los usuarios no pueden autenticarse en el sistema.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(171, 'Error de permisos', 'El usuario no tiene los permisos necesarios para acceder a los archivos.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(172, 'Fallo en el switch de red', 'Un switch de la red está causando interrupciones.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(173, 'Solicitud de nuevo software', 'El usuario solicita la instalación de nuevo software.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(174, 'Problema con la impresora', 'La impresora no responde.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(175, 'Red intermitente', 'La red está intermitente desde esta mañana.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(176, 'Problema con el firewall', 'El firewall está bloqueando sitios web necesarios.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:13:11', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(177, 'Problema con la conexión Wi-Fi', 'El Wi-Fi se desconecta intermitentemente.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(178, 'Error en el sistema de facturación', 'El sistema de facturación no está calculando los impuestos correctamente.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(179, 'Fallo en el sistema de backup', 'Las copias de seguridad no se están realizando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(180, 'Solicitud de instalación de software', 'El usuario necesita un software específico para su trabajo.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(181, 'Problema de red local', 'La red local está caida en una zona de la oficina.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(182, 'Error de actualización del sistema', 'El sistema no puede completar la actualización.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(183, 'Solicitud de nuevo equipo', 'El usuario solicita un nuevo equipo por problemas con el actual.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(184, 'Problema de impresora compartida', 'La impresora compartida no aparece en la lista de dispositivos.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(185, 'Problema con el servidor de archivos', 'El servidor de archivos no está accesible.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(186, 'Problema con el acceso remoto', 'El usuario no puede conectarse al sistema de manera remota.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:15:50', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(187, 'Error en el servidor de correo', 'El servidor de correo está caído.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(188, 'Problema con las actualizaciones de software', 'El software no puede instalar las actualizaciones.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(189, 'Fallo en la autenticación de usuarios', 'Los usuarios no pueden autenticarse.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(190, 'Solicitud de ampliación de memoria RAM', 'El usuario solicita una ampliación de memoria RAM en su equipo.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(191, 'Problema con el sistema operativo', 'El sistema operativo no está iniciando correctamente.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(192, 'Fallo en la red inalámbrica', 'Los usuarios no pueden conectarse a la red Wi-Fi.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(193, 'Problema con la seguridad de la red', 'Se ha detectado una brecha de seguridad en la red.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(194, 'Solicitud de cambio de contraseña', 'El usuario no puede cambiar su contraseña.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(195, 'Problema con el servidor de bases de datos', 'El servidor de bases de datos está fuera de servicio.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(196, 'Fallo en el sistema de copias de seguridad', 'El sistema de copias de seguridad ha fallado.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:20:03', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(197, 'Error en la red local', 'La red local está caída en toda la oficina.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(198, 'Problema con el servidor de backup', 'El servidor de backup está fuera de servicio.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(199, 'Solicitud de instalación de drivers', 'El usuario solicita la instalación de nuevos drivers.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(200, 'Fallo en la configuración de red', 'La configuración de red no está correcta en los dispositivos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(201, 'Problema con el sistema de tickets', 'El sistema de tickets está fallando.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(202, 'Fallo en la sincronización de archivos', 'Los archivos no se están sincronizando en la red.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(203, 'Problema con el acceso a VPN', 'El usuario no puede conectarse a la VPN.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(204, 'Solicitud de reinstalación del sistema operativo', 'El usuario solicita la reinstalación del sistema operativo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(205, 'Error en el sistema de reportes', 'El sistema de reportes no está generando datos correctos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(206, 'Problema con el servidor de aplicaciones', 'El servidor de aplicaciones no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:26:17', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(207, 'Error en la conexión a internet', 'Los usuarios no pueden conectarse a internet.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(208, 'Fallo en la sincronización de datos', 'Los datos no se sincronizan con el servidor.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(209, 'Problema con la impresora compartida', 'La impresora compartida no está imprimiendo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(210, 'Fallo en el acceso a carpetas compartidas', 'El usuario no tiene acceso a carpetas compartidas.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(211, 'Error en la configuración de correo electrónico', 'El correo no está configurado correctamente.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(212, 'Problema con el sistema de gestión de inventarios', 'El sistema de gestión de inventarios está fuera de servicio.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(213, 'Fallo en la actualización del software de seguridad', 'El software de seguridad no se actualiza.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(214, 'Problema con el servidor de archivos', 'El servidor de archivos no está disponible.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(215, 'Solicitud de ampliación de permisos', 'El usuario solicita más permisos para acceder a recursos compartidos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(216, 'Problema con el firewall', 'El firewall está bloqueando aplicaciones críticas.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:28:45', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(217, 'Error de conexión a red', 'El usuario no puede conectarse a la red.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(218, 'Solicitud de reinstalación de software', 'El usuario solicita la reinstalación de software.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(219, 'Fallo en el sistema de seguridad', 'El sistema de seguridad no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(220, 'Problema con el servidor de bases de datos', 'El servidor de bases de datos está caído.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(221, 'Solicitud de acceso a recursos compartidos', 'El usuario solicita acceso a recursos compartidos.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(222, 'Fallo en el sistema de facturación', 'El sistema de facturación no está generando reportes.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(223, 'Problema con el acceso remoto', 'El usuario no puede conectarse de manera remota.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(224, 'Error en el sistema de actualizaciones', 'El sistema de actualizaciones no está funcionando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(225, 'Problema de impresión', 'La impresora no responde.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(226, 'Fallo en el servicio de archivos', 'El servicio de archivos no está disponible.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:33:08', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(227, 'Solicitud de cambio de equipo', 'El usuario solicita un cambio de equipo.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(228, 'Problema con el software de contabilidad', 'El software de contabilidad no está funcionando.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(229, 'Fallo en la conexión VPN', 'La conexión VPN se cae frecuentemente.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(230, 'Error en el sistema de autenticación', 'El sistema de autenticación está fallando.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(231, 'Problema de latencia en la red', 'La red tiene una latencia elevada.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(232, 'Solicitud de soporte para videoconferencia', 'El usuario tiene problemas para iniciar una videoconferencia.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(233, 'Fallo en la copia de seguridad', 'El sistema de copias de seguridad ha fallado.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(234, 'Problema con el acceso a correo electrónico', 'El usuario no puede acceder a su correo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(235, 'Error de permisos en carpetas compartidas', 'El usuario no tiene permisos para acceder a carpetas compartidas.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(236, 'Fallo en la sincronización de datos', 'Los datos no se sincronizan correctamente.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:33:36', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(237, 'Error en la conexión a internet', 'Los usuarios no pueden conectarse a internet.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(238, 'Problema con el servidor de aplicaciones', 'El servidor de aplicaciones no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(239, 'Solicitud de instalación de software', 'El usuario solicita la instalación de un nuevo software.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(240, 'Fallo en la impresora de red', 'La impresora de red no está imprimiendo.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(241, 'Error en la configuración de correo', 'El correo no está configurado correctamente en el dispositivo.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(242, 'Fallo en la red Wi-Fi', 'La red Wi-Fi está inestable.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(243, 'Problema con la sincronización de archivos', 'Los archivos no se sincronizan con el servidor.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(244, 'Solicitud de actualización de software', 'El usuario solicita la actualización de software.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(245, 'Error en el sistema de autenticación', 'El sistema de autenticación no está funcionando correctamente.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(246, 'Problema de permisos en carpetas compartidas', 'El usuario no tiene permisos para acceder a carpetas compartidas.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(247, 'Solicitud de nuevo equipo', 'El usuario solicita un nuevo equipo de trabajo.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(248, 'Error en la conexión VPN', 'El usuario no puede conectarse a la VPN.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(249, 'Fallo en el sistema de backups', 'El sistema de copias de seguridad no está funcionando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(250, 'Problema con la latencia de la red', 'La red tiene una latencia elevada.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(251, 'Solicitud de soporte para videoconferencia', 'El usuario tiene problemas con la configuración de videoconferencias.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(252, 'Error en el servidor de archivos', 'El servidor de archivos no está accesible.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(253, 'Fallo en la actualización del sistema operativo', 'El sistema operativo no se ha actualizado correctamente.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(254, 'Problema con el acceso remoto', 'El usuario no puede conectarse de manera remota.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(255, 'Solicitud de cambio de contraseña', 'El usuario no puede cambiar su contraseña.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(256, 'Error en el sistema de tickets', 'El sistema de tickets está fallando.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:43:28', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(257, 'Fallo en la base de datos', 'El sistema de bases de datos no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(258, 'Error en el sistema de videoconferencia', 'La aplicación de videoconferencia no está funcionando.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(259, 'Solicitud de permisos adicionales', 'El usuario solicita permisos adicionales para modificar archivos.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(260, 'Problema con el servicio de red', 'La conexión de red se ha caído en una parte de la oficina.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(261, 'Fallo en el sistema de nómina', 'El sistema de nómina no genera los pagos correctamente.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(262, 'Problema con el software de diseño', 'El software de diseño no está funcionando correctamente.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(263, 'Solicitud de acceso a datos históricos', 'El usuario solicita acceso a datos históricos de la empresa.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(264, 'Error en el sistema de autenticación multifactor', 'El sistema de autenticación multifactor está fallando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(265, 'Problema con el acceso al servidor FTP', 'El usuario no puede conectarse al servidor FTP.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(266, 'Solicitud de actualización de hardware', 'El usuario solicita una actualización de hardware para su equipo.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(267, 'Fallo en la red de invitados', 'La red de invitados no está disponible.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(268, 'Error en la aplicación móvil', 'La aplicación móvil de la empresa no responde.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(269, 'Problema con la sincronización de calendario', 'El calendario corporativo no se sincroniza.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(270, 'Fallo en el sistema de monitoreo de redes', 'El sistema de monitoreo de redes no está reportando datos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(271, 'Solicitud de respaldo de datos', 'El usuario solicita un respaldo de los datos de su equipo.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(272, 'Error en el servidor de copias de seguridad', 'El servidor de copias de seguridad está caído.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(273, 'Problema con el servidor de correo', 'El servidor de correo no está procesando los mensajes.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(274, 'Solicitud de revisión de seguridad', 'El usuario solicita una revisión de la seguridad de su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(275, 'Error en la configuración del servidor', 'El servidor no está configurado correctamente.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(276, 'Problema con la actualización de BIOS', 'La actualización de BIOS ha fallado en varios equipos.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 19:56:55', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(277, 'Fallo en el servidor de autenticación', 'El servidor de autenticación está caído.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(278, 'Problema con el acceso a la red local', 'El usuario no puede acceder a la red local.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(279, 'Solicitud de restauración de datos', 'El usuario solicita la restauración de sus datos.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(280, 'Error en el sistema de inventarios', 'El sistema de inventarios no está mostrando los datos correctos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(281, 'Problema con el servidor de archivos', 'El servidor de archivos no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(282, 'Fallo en el sistema de copias de seguridad', 'El sistema de copias de seguridad no se está ejecutando correctamente.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(283, 'Solicitud de actualización de software', 'El usuario solicita la actualización del software en su equipo.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(284, 'Error en la configuración de VPN', 'La configuración de VPN no es correcta en algunos equipos.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(285, 'Problema de rendimiento en la red', 'La red está funcionando lentamente.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(286, 'Solicitud de soporte para nueva implementación', 'El usuario solicita soporte para la implementación de un nuevo sistema.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(287, 'Fallo en la actualización de antivirus', 'El antivirus no se ha actualizado correctamente.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(288, 'Problema con la base de datos de clientes', 'La base de datos de clientes está inaccesible.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(289, 'Solicitud de nuevo hardware', 'El usuario solicita un nuevo hardware para mejorar su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(290, 'Error en la sincronización de correos electrónicos', 'El correo electrónico no está sincronizando correctamente.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(291, 'Fallo en la red de backup', 'La red de backup está caida.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(292, 'Solicitud de cambio de servidor', 'El usuario solicita cambiar el servidor actual.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(293, 'Problema con el acceso a recursos compartidos', 'El usuario no puede acceder a recursos compartidos en la red.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(294, 'Solicitud de ampliación de almacenamiento', 'El usuario solicita más espacio de almacenamiento en su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(295, 'Error en el sistema de monitoreo de tráfico', 'El sistema de monitoreo de tráfico no está reportando correctamente.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(296, 'Problema con la autenticación de dos factores', 'El sistema de autenticación de dos factores está fallando.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:04:44', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(297, 'Fallo en el servidor de correo', 'El servidor de correo no está funcionando.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(298, 'Problema con la red de datos', 'La red de datos está presentando problemas de conexión.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(299, 'Solicitud de ampliación de RAM', 'El usuario solicita una ampliación de memoria RAM en su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(300, 'Fallo en el servidor de impresión', 'El servidor de impresión no está disponible.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(301, 'Problema con el acceso remoto', 'El usuario no puede acceder remotamente al servidor.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(302, 'Fallo en el sistema de gestión de usuarios', 'El sistema de gestión de usuarios no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(303, 'Solicitud de soporte para la configuración de VPN', 'El usuario solicita soporte para configurar la VPN.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(304, 'Problema con el sistema de backup automático', 'El sistema de backup automático no está funcionando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(305, 'Solicitud de eliminación de cuenta', 'El usuario solicita la eliminación de su cuenta del sistema.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(306, 'Error en el sistema de facturación', 'El sistema de facturación está generando facturas incorrectas.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:52:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(307, 'Fallo en el servidor de correo', 'El servidor de correo no está funcionando.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(308, 'Problema con la red de datos', 'La red de datos está presentando problemas de conexión.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(309, 'Solicitud de ampliación de RAM', 'El usuario solicita una ampliación de memoria RAM en su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(310, 'Fallo en el servidor de impresión', 'El servidor de impresión no está disponible.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(311, 'Problema con el acceso remoto', 'El usuario no puede acceder remotamente al servidor.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(312, 'Fallo en el sistema de gestión de usuarios', 'El sistema de gestión de usuarios no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(313, 'Solicitud de soporte para la configuración de VPN', 'El usuario solicita soporte para configurar la VPN.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(314, 'Problema con el sistema de backup automático', 'El sistema de backup automático no está funcionando.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(315, 'Solicitud de eliminación de cuenta', 'El usuario solicita la eliminación de su cuenta del sistema.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(316, 'Error en el sistema de facturación', 'El sistema de facturación está generando facturas incorrectas.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 20:55:43', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(317, 'Error en el servidor de correo', 'El servidor de correo no responde.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(318, 'Problema con la autenticación de usuarios', 'El sistema de autenticación de usuarios está caído.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(319, 'Solicitud de ampliación de espacio', 'El usuario solicita más espacio de almacenamiento en su equipo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(320, 'Problema con el firewall', 'El firewall está bloqueando servicios críticos.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(321, 'Error en la red de invitados', 'Los usuarios no pueden acceder a la red de invitados.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(322, 'Fallo en el sistema de copias de seguridad', 'El sistema de copias de seguridad no se ha ejecutado correctamente.', 1, 3, 9, NULL, NULL, 1, 1, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(323, 'Problema con el servidor FTP', 'El servidor FTP no está accesible.', 1, 3, 9, NULL, NULL, 1, 2, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(324, 'Error en la base de datos de usuarios', 'La base de datos de usuarios no está respondiendo.', 1, 3, 9, NULL, NULL, 1, 3, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(325, 'Solicitud de actualización de hardware', 'El usuario solicita una actualización de hardware en su equipo.', 1, 3, 9, NULL, NULL, 1, 4, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+(326, 'Fallo en la red interna', 'La red interna está experimentando caídas intermitentes.', 1, 3, 9, NULL, NULL, 1, 5, 0, '2024-09-24 21:07:46', 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -714,7 +957,204 @@ INSERT INTO `ticketdetalle` (`idTicketDetalle`, `idTicket`, `idAgente`, `idDepar
 (89, 114, 8, 1, 'null', 'PRUEBA', '2024-09-22 20:52:14', 1),
 (90, 114, 8, 1, 'null', 'PRUEBA2 ', '2024-09-22 20:52:26', 1),
 (91, 114, 8, 1, 'null', 'PRUEBA 3', '2024-09-22 20:52:35', 1),
-(92, 114, 8, 1, 'null', 'Se procede a cerrar el ticket ya que el incidente fue resuelto ', '2024-09-22 21:00:02', 1);
+(92, 114, 8, 1, 'null', 'Se procede a cerrar el ticket ya que el incidente fue resuelto ', '2024-09-22 21:00:02', 1),
+(93, 108, NULL, 1, 'null', '<p>Favor su ayuda no tengo una respuesta </p>', '2024-09-23 19:05:35', 1),
+(94, 108, 15, 1, 'null', '<p>Según lo indicado vía telefónica, es un problema con el proveedor de internet, nos indica que por cuestiones de cortes de energía eléctrica tienen una falla es en sus ups, nos indican que el servicio se restablecerá a las 13:30 de hoy</p>', '2024-09-23 19:15:23', 1),
+(95, 117, 15, 1, 'null', '<p>Se contacta con el usuario y la impresora queda funcionando</p>', '2024-09-23 22:24:01', 1),
+(96, 118, 15, 1, 'null', '<p>Se contacta al cliente y se elimina los cookies </p>', '2024-09-23 22:27:11', 1),
+(97, 117, NULL, 1, 'null', '<p>Confirmo solcución, cerrar ticket </p>', '2024-09-23 22:36:18', 1),
+(98, 105, 9, 2, 'null', '<p>Revisar prueba</p>', '2024-09-24 12:45:55', 1),
+(99, 117, NULL, 1, 'null', '<p>aun no tengo una respuesta</p>', '2024-09-24 13:03:52', 1),
+(100, 119, 15, 1, 'null', '<p>Se procede a revisar y se escala al solicitud al departamento de compras, </p>', '2024-09-24 13:07:57', 1),
+(101, 119, 15, 1, 'null', '<p>Se adquiere y se entrega el teclado al usario</p>', '2024-09-24 13:08:20', 1),
+(102, 119, NULL, 1, 'null', '<p>se confirma, cerrar el incidente</p>', '2024-09-24 13:08:52', 1),
+(103, 119, 15, 1, 'null', '<p>Es necesario verificar el funcionamiento del teclado.</p>', '2024-09-24 13:32:20', 1),
+(104, 119, NULL, 1, 'null', '<p>asasa</p>', '2024-09-24 13:59:13', 1),
+(113, 124, 1, 1, 'Verificación de la conexión de red', 'Se revisaron las configuraciones de red y se reinició el router.', '2024-09-24 17:48:57', 1),
+(114, 125, 2, 2, 'Impresora en revisión', 'La impresora será reemplazada temporalmente mientras se repara.', '2024-09-24 17:48:57', 1),
+(115, 126, 3, 3, 'Solicitud en proceso', 'Se ha enviado la solicitud de compra del software al departamento de compras.', '2024-09-24 17:48:57', 1),
+(146, 137, 15, 1, 'Correo no configurado correctamente', 'Se actualizó la configuración de servidor SMTP.', '2024-09-24 18:07:07', 1),
+(147, 138, 15, 1, 'Servidor fuera de línea', 'Se reinició el servidor y volvió a estar operativo.', '2024-09-24 18:07:07', 1),
+(148, 139, 15, 1, 'Actualización de hardware en proceso', 'El departamento de compras está adquiriendo la nueva memoria.', '2024-09-24 18:07:07', 1),
+(149, 140, 15, 1, 'Acceso remoto habilitado', 'Se habilitó el acceso remoto para el usuario.', '2024-09-24 18:07:07', 1),
+(150, 141, 15, 1, 'Cuenta de usuario creada', 'Se creó la cuenta y se proporcionaron las credenciales.', '2024-09-24 18:07:07', 1),
+(151, 142, 15, 1, 'VPN en revisión', 'Se revisó la conexión VPN y se habilitó nuevamente.', '2024-09-24 18:07:07', 1),
+(152, 143, 15, 1, 'Impresora en revisión', 'La impresora fue reparada y está operativa.', '2024-09-24 18:07:07', 1),
+(153, 144, 15, 1, 'Licencia de software solicitada', 'Se solicitó la licencia a TI para su instalación.', '2024-09-24 18:07:07', 1),
+(154, 145, 15, 1, 'Error en el sistema corregido', 'Se corrigió el error de transacciones en el sistema.', '2024-09-24 18:07:07', 1),
+(155, 146, 15, 1, 'Equipo nuevo solicitado', 'Se solicitó el equipo nuevo para la oficina del usuario.', '2024-09-24 18:07:07', 1),
+(156, 156, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede iniciar sesión en su computadora.', '2024-09-24 18:55:35', 1),
+(169, 157, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede iniciar sesión en su computadora.', '2024-09-24 19:02:26', 1),
+(170, 158, 15, 1, 'Se requiere atención inmediata', 'La conexión VPN se cae frecuentemente.', '2024-09-24 19:02:26', 1),
+(171, 159, 15, 1, 'Se requiere atención inmediata', 'La impresora del segundo piso está fuera de servicio.', '2024-09-24 19:02:26', 1),
+(172, 160, 15, 1, 'Se requiere atención inmediata', 'La red está excepcionalmente lenta desde ayer.', '2024-09-24 19:02:26', 1),
+(173, 161, 15, 1, 'Se requiere atención inmediata', 'El software de contabilidad no abre.', '2024-09-24 19:02:26', 1),
+(174, 162, 15, 1, 'Se requiere atención inmediata', 'El antivirus necesita ser actualizado urgentemente.', '2024-09-24 19:02:26', 1),
+(175, 163, 15, 1, 'Se requiere atención inmediata', 'El usuario no tiene acceso a los recursos compartidos.', '2024-09-24 19:02:26', 1),
+(176, 164, 15, 1, 'Se requiere atención inmediata', 'No se pueden enviar correos desde Outlook.', '2024-09-24 19:02:26', 1),
+(177, 165, 15, 1, 'Se requiere atención inmediata', 'La licencia de software ha expirado.', '2024-09-24 19:02:26', 1),
+(178, 166, 15, 1, 'Se requiere atención inmediata', 'El disco duro está haciendo un ruido extraño.', '2024-09-24 19:02:26', 1),
+(179, 167, 15, 1, 'Se requiere atención inmediata', 'El servidor principal está caído.', '2024-09-24 19:13:22', 1),
+(180, 168, 15, 1, 'Se requiere atención inmediata', 'Los correos no se están sincronizando con el servidor.', '2024-09-24 19:13:22', 1),
+(181, 169, 15, 1, 'Se requiere atención inmediata', 'El disco duro ha fallado en uno de los servidores.', '2024-09-24 19:13:22', 1),
+(182, 170, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden autenticarse en el sistema.', '2024-09-24 19:13:22', 1),
+(183, 171, 15, 1, 'Se requiere atención inmediata', 'El usuario no tiene los permisos necesarios para acceder a los archivos.', '2024-09-24 19:13:22', 1),
+(184, 172, 15, 1, 'Se requiere atención inmediata', 'Un switch de la red está causando interrupciones.', '2024-09-24 19:13:22', 1),
+(185, 173, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la instalación de nuevo software.', '2024-09-24 19:13:22', 1),
+(186, 174, 15, 1, 'Se requiere atención inmediata', 'La impresora no responde.', '2024-09-24 19:13:22', 1),
+(187, 175, 15, 1, 'Se requiere atención inmediata', 'La red está intermitente desde esta mañana.', '2024-09-24 19:13:22', 1),
+(188, 176, 15, 1, 'Se requiere atención inmediata', 'El firewall está bloqueando sitios web necesarios.', '2024-09-24 19:13:22', 1),
+(189, 177, 15, 1, 'Se requiere atención inmediata', 'El Wi-Fi se desconecta intermitentemente.', '2024-09-24 19:16:03', 1),
+(190, 178, 15, 1, 'Se requiere atención inmediata', 'El sistema de facturación no está calculando los impuestos correctamente.', '2024-09-24 19:16:03', 1),
+(191, 179, 15, 1, 'Se requiere atención inmediata', 'Las copias de seguridad no se están realizando.', '2024-09-24 19:16:03', 1),
+(192, 180, 15, 1, 'Se requiere atención inmediata', 'El usuario necesita un software específico para su trabajo.', '2024-09-24 19:16:03', 1),
+(193, 181, 15, 1, 'Se requiere atención inmediata', 'La red local está caida en una zona de la oficina.', '2024-09-24 19:16:03', 1),
+(194, 182, 15, 1, 'Se requiere atención inmediata', 'El sistema no puede completar la actualización.', '2024-09-24 19:16:03', 1),
+(195, 183, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita un nuevo equipo por problemas con el actual.', '2024-09-24 19:16:03', 1),
+(196, 184, 15, 1, 'Se requiere atención inmediata', 'La impresora compartida no aparece en la lista de dispositivos.', '2024-09-24 19:16:03', 1),
+(197, 185, 15, 1, 'Se requiere atención inmediata', 'El servidor de archivos no está accesible.', '2024-09-24 19:16:03', 1),
+(198, 186, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse al sistema de manera remota.', '2024-09-24 19:16:03', 1),
+(199, 187, 15, 1, 'Se requiere atención inmediata', 'El servidor de correo está caído.', '2024-09-24 19:20:20', 1),
+(200, 188, 15, 1, 'Se requiere atención inmediata', 'El software no puede instalar las actualizaciones.', '2024-09-24 19:20:20', 1),
+(201, 189, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden autenticarse.', '2024-09-24 19:20:20', 1),
+(202, 190, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una ampliación de memoria RAM en su equipo.', '2024-09-24 19:20:20', 1),
+(203, 191, 15, 1, 'Se requiere atención inmediata', 'El sistema operativo no está iniciando correctamente.', '2024-09-24 19:20:20', 1),
+(204, 192, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden conectarse a la red Wi-Fi.', '2024-09-24 19:20:20', 1),
+(205, 193, 15, 1, 'Se requiere atención inmediata', 'Se ha detectado una brecha de seguridad en la red.', '2024-09-24 19:20:20', 1);
+INSERT INTO `ticketdetalle` (`idTicketDetalle`, `idTicket`, `idAgente`, `idDepartamentoA`, `observacion`, `detalle`, `fechaDetalle`, `tipoDetalle`) VALUES
+(206, 194, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede cambiar su contraseña.', '2024-09-24 19:20:20', 1),
+(207, 195, 15, 1, 'Se requiere atención inmediata', 'El servidor de bases de datos está fuera de servicio.', '2024-09-24 19:20:20', 1),
+(208, 196, 15, 1, 'Se requiere atención inmediata', 'El sistema de copias de seguridad ha fallado.', '2024-09-24 19:20:20', 1),
+(209, 197, 15, 1, 'Se requiere atención inmediata', 'La red local está caída en toda la oficina.', '2024-09-24 19:26:31', 1),
+(210, 198, 15, 1, 'Se requiere atención inmediata', 'El servidor de backup está fuera de servicio.', '2024-09-24 19:26:31', 1),
+(211, 199, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la instalación de nuevos drivers.', '2024-09-24 19:26:31', 1),
+(212, 200, 15, 1, 'Se requiere atención inmediata', 'La configuración de red no está correcta en los dispositivos.', '2024-09-24 19:26:31', 1),
+(213, 201, 15, 1, 'Se requiere atención inmediata', 'El sistema de tickets está fallando.', '2024-09-24 19:26:31', 1),
+(214, 202, 15, 1, 'Se requiere atención inmediata', 'Los archivos no se están sincronizando en la red.', '2024-09-24 19:26:31', 1),
+(215, 203, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse a la VPN.', '2024-09-24 19:26:31', 1),
+(216, 204, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la reinstalación del sistema operativo.', '2024-09-24 19:26:31', 1),
+(217, 205, 15, 1, 'Se requiere atención inmediata', 'El sistema de reportes no está generando datos correctos.', '2024-09-24 19:26:31', 1),
+(218, 206, 15, 1, 'Se requiere atención inmediata', 'El servidor de aplicaciones no está respondiendo.', '2024-09-24 19:26:31', 1),
+(219, 207, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden conectarse a internet.', '2024-09-24 19:29:11', 1),
+(220, 208, 15, 1, 'Se requiere atención inmediata', 'Los datos no se sincronizan con el servidor.', '2024-09-24 19:29:11', 1),
+(221, 209, 15, 1, 'Se requiere atención inmediata', 'La impresora compartida no está imprimiendo.', '2024-09-24 19:29:11', 1),
+(222, 210, 15, 1, 'Se requiere atención inmediata', 'El usuario no tiene acceso a carpetas compartidas.', '2024-09-24 19:29:11', 1),
+(223, 211, 15, 1, 'Se requiere atención inmediata', 'El correo no está configurado correctamente.', '2024-09-24 19:29:11', 1),
+(224, 212, 15, 1, 'Se requiere atención inmediata', 'El sistema de gestión de inventarios está fuera de servicio.', '2024-09-24 19:29:11', 1),
+(225, 213, 15, 1, 'Se requiere atención inmediata', 'El software de seguridad no se actualiza.', '2024-09-24 19:29:11', 1),
+(226, 214, 15, 1, 'Se requiere atención inmediata', 'El servidor de archivos no está disponible.', '2024-09-24 19:29:11', 1),
+(227, 215, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita más permisos para acceder a recursos compartidos.', '2024-09-24 19:29:11', 1),
+(228, 216, 15, 1, 'Se requiere atención inmediata', 'El firewall está bloqueando aplicaciones críticas.', '2024-09-24 19:29:11', 1),
+(229, 217, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse a la red.', '2024-09-24 19:33:19', 1),
+(230, 218, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la reinstalación de software.', '2024-09-24 19:33:19', 1),
+(231, 219, 15, 1, 'Se requiere atención inmediata', 'El sistema de seguridad no está respondiendo.', '2024-09-24 19:33:19', 1),
+(232, 220, 15, 1, 'Se requiere atención inmediata', 'El servidor de bases de datos está caído.', '2024-09-24 19:33:19', 1),
+(233, 221, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita acceso a recursos compartidos.', '2024-09-24 19:33:19', 1),
+(234, 222, 15, 1, 'Se requiere atención inmediata', 'El sistema de facturación no está generando reportes.', '2024-09-24 19:33:19', 1),
+(235, 223, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse de manera remota.', '2024-09-24 19:33:19', 1),
+(236, 224, 15, 1, 'Se requiere atención inmediata', 'El sistema de actualizaciones no está funcionando.', '2024-09-24 19:33:19', 1),
+(237, 225, 15, 1, 'Se requiere atención inmediata', 'La impresora no responde.', '2024-09-24 19:33:19', 1),
+(238, 226, 15, 1, 'Se requiere atención inmediata', 'El servicio de archivos no está disponible.', '2024-09-24 19:33:19', 1),
+(239, 227, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita un cambio de equipo.', '2024-09-24 19:33:48', 1),
+(240, 228, 15, 1, 'Se requiere atención inmediata', 'El software de contabilidad no está funcionando.', '2024-09-24 19:33:48', 1),
+(241, 229, 15, 1, 'Se requiere atención inmediata', 'La conexión VPN se cae frecuentemente.', '2024-09-24 19:33:48', 1),
+(242, 230, 15, 1, 'Se requiere atención inmediata', 'El sistema de autenticación está fallando.', '2024-09-24 19:33:48', 1),
+(243, 231, 15, 1, 'Se requiere atención inmediata', 'La red tiene una latencia elevada.', '2024-09-24 19:33:48', 1),
+(244, 232, 15, 1, 'Se requiere atención inmediata', 'El usuario tiene problemas para iniciar una videoconferencia.', '2024-09-24 19:33:48', 1),
+(245, 233, 15, 1, 'Se requiere atención inmediata', 'El sistema de copias de seguridad ha fallado.', '2024-09-24 19:33:48', 1),
+(246, 234, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede acceder a su correo.', '2024-09-24 19:33:48', 1),
+(247, 235, 15, 1, 'Se requiere atención inmediata', 'El usuario no tiene permisos para acceder a carpetas compartidas.', '2024-09-24 19:33:48', 1),
+(248, 236, 15, 1, 'Se requiere atención inmediata', 'Los datos no se sincronizan correctamente.', '2024-09-24 19:33:48', 1),
+(249, 237, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden conectarse a internet.', '2024-09-24 19:43:50', 1),
+(250, 238, 15, 1, 'Se requiere atención inmediata', 'El servidor de aplicaciones no está respondiendo.', '2024-09-24 19:43:50', 1),
+(251, 239, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la instalación de un nuevo software.', '2024-09-24 19:43:50', 1),
+(252, 240, 15, 1, 'Se requiere atención inmediata', 'La impresora de red no está imprimiendo.', '2024-09-24 19:43:50', 1),
+(253, 241, 15, 1, 'Se requiere atención inmediata', 'El correo no está configurado correctamente en el dispositivo.', '2024-09-24 19:43:50', 1),
+(254, 242, 15, 1, 'Se requiere atención inmediata', 'La red Wi-Fi está inestable.', '2024-09-24 19:43:50', 1),
+(255, 243, 15, 1, 'Se requiere atención inmediata', 'Los archivos no se sincronizan con el servidor.', '2024-09-24 19:43:50', 1),
+(256, 244, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la actualización de software.', '2024-09-24 19:43:50', 1),
+(257, 245, 15, 1, 'Se requiere atención inmediata', 'El sistema de autenticación no está funcionando correctamente.', '2024-09-24 19:43:50', 1),
+(258, 246, 15, 1, 'Se requiere atención inmediata', 'El usuario no tiene permisos para acceder a carpetas compartidas.', '2024-09-24 19:43:50', 1),
+(259, 247, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita un nuevo equipo de trabajo.', '2024-09-24 19:43:50', 1),
+(260, 248, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse a la VPN.', '2024-09-24 19:43:50', 1),
+(261, 249, 15, 1, 'Se requiere atención inmediata', 'El sistema de copias de seguridad no está funcionando.', '2024-09-24 19:43:50', 1),
+(262, 250, 15, 1, 'Se requiere atención inmediata', 'La red tiene una latencia elevada.', '2024-09-24 19:43:50', 1),
+(263, 251, 15, 1, 'Se requiere atención inmediata', 'El usuario tiene problemas con la configuración de videoconferencias.', '2024-09-24 19:43:50', 1),
+(264, 252, 15, 1, 'Se requiere atención inmediata', 'El servidor de archivos no está accesible.', '2024-09-24 19:43:50', 1),
+(265, 253, 15, 1, 'Se requiere atención inmediata', 'El sistema operativo no se ha actualizado correctamente.', '2024-09-24 19:43:50', 1),
+(266, 254, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse de manera remota.', '2024-09-24 19:43:50', 1),
+(267, 255, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede cambiar su contraseña.', '2024-09-24 19:43:50', 1),
+(268, 256, 15, 1, 'Se requiere atención inmediata', 'El sistema de tickets está fallando.', '2024-09-24 19:43:50', 1),
+(269, 257, 15, 1, 'Se requiere atención inmediata', 'El sistema de bases de datos no está respondiendo.', '2024-09-24 19:57:16', 1),
+(270, 258, 15, 1, 'Se requiere atención inmediata', 'La aplicación de videoconferencia no está funcionando.', '2024-09-24 19:57:16', 1),
+(271, 259, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita permisos adicionales para modificar archivos.', '2024-09-24 19:57:16', 1),
+(272, 260, 15, 1, 'Se requiere atención inmediata', 'La conexión de red se ha caído en una parte de la oficina.', '2024-09-24 19:57:16', 1),
+(273, 261, 15, 1, 'Se requiere atención inmediata', 'El sistema de nómina no genera los pagos correctamente.', '2024-09-24 19:57:16', 1),
+(274, 262, 15, 1, 'Se requiere atención inmediata', 'El software de diseño no está funcionando correctamente.', '2024-09-24 19:57:16', 1),
+(275, 263, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita acceso a datos históricos de la empresa.', '2024-09-24 19:57:16', 1),
+(276, 264, 15, 1, 'Se requiere atención inmediata', 'El sistema de autenticación multifactor está fallando.', '2024-09-24 19:57:16', 1),
+(277, 265, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede conectarse al servidor FTP.', '2024-09-24 19:57:16', 1),
+(278, 266, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una actualización de hardware para su equipo.', '2024-09-24 19:57:16', 1),
+(279, 267, 15, 1, 'Se requiere atención inmediata', 'La red de invitados no está disponible.', '2024-09-24 19:57:16', 1),
+(280, 268, 15, 1, 'Se requiere atención inmediata', 'La aplicación móvil de la empresa no responde.', '2024-09-24 19:57:16', 1),
+(281, 269, 15, 1, 'Se requiere atención inmediata', 'El calendario corporativo no se sincroniza.', '2024-09-24 19:57:16', 1),
+(282, 270, 15, 1, 'Se requiere atención inmediata', 'El sistema de monitoreo de redes no está reportando datos.', '2024-09-24 19:57:16', 1),
+(283, 271, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita un respaldo de los datos de su equipo.', '2024-09-24 19:57:16', 1),
+(284, 272, 15, 1, 'Se requiere atención inmediata', 'El servidor de copias de seguridad está caído.', '2024-09-24 19:57:16', 1),
+(285, 273, 15, 1, 'Se requiere atención inmediata', 'El servidor de correo no está procesando los mensajes.', '2024-09-24 19:57:16', 1),
+(286, 274, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una revisión de la seguridad de su equipo.', '2024-09-24 19:57:16', 1),
+(287, 275, 15, 1, 'Se requiere atención inmediata', 'El servidor no está configurado correctamente.', '2024-09-24 19:57:16', 1),
+(288, 276, 15, 1, 'Se requiere atención inmediata', 'La actualización de BIOS ha fallado en varios equipos.', '2024-09-24 19:57:16', 1),
+(289, 277, 15, 1, 'Se requiere atención inmediata', 'El servidor de autenticación está caído.', '2024-09-24 20:05:00', 1),
+(290, 278, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede acceder a la red local.', '2024-09-24 20:05:00', 1),
+(291, 279, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la restauración de sus datos.', '2024-09-24 20:05:00', 1),
+(292, 280, 15, 1, 'Se requiere atención inmediata', 'El sistema de inventarios no está mostrando los datos correctos.', '2024-09-24 20:05:00', 1),
+(293, 281, 15, 1, 'Se requiere atención inmediata', 'El servidor de archivos no está respondiendo.', '2024-09-24 20:05:00', 1),
+(294, 282, 15, 1, 'Se requiere atención inmediata', 'El sistema de copias de seguridad no se está ejecutando correctamente.', '2024-09-24 20:05:00', 1),
+(295, 283, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la actualización del software en su equipo.', '2024-09-24 20:05:00', 1),
+(296, 284, 15, 1, 'Se requiere atención inmediata', 'La configuración de VPN no es correcta en algunos equipos.', '2024-09-24 20:05:00', 1),
+(297, 285, 15, 1, 'Se requiere atención inmediata', 'La red está funcionando lentamente.', '2024-09-24 20:05:00', 1),
+(298, 286, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita soporte para la implementación de un nuevo sistema.', '2024-09-24 20:05:00', 1),
+(299, 287, 15, 1, 'Se requiere atención inmediata', 'El antivirus no se ha actualizado correctamente.', '2024-09-24 20:05:00', 1),
+(300, 288, 15, 1, 'Se requiere atención inmediata', 'La base de datos de clientes está inaccesible.', '2024-09-24 20:05:00', 1),
+(301, 289, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita un nuevo hardware para mejorar su equipo.', '2024-09-24 20:05:00', 1),
+(302, 290, 15, 1, 'Se requiere atención inmediata', 'El correo electrónico no está sincronizando correctamente.', '2024-09-24 20:05:00', 1),
+(303, 291, 15, 1, 'Se requiere atención inmediata', 'La red de backup está caida.', '2024-09-24 20:05:00', 1),
+(304, 292, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita cambiar el servidor actual.', '2024-09-24 20:05:00', 1),
+(305, 293, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede acceder a recursos compartidos en la red.', '2024-09-24 20:05:00', 1),
+(306, 294, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita más espacio de almacenamiento en su equipo.', '2024-09-24 20:05:00', 1),
+(307, 295, 15, 1, 'Se requiere atención inmediata', 'El sistema de monitoreo de tráfico no está reportando correctamente.', '2024-09-24 20:05:00', 1),
+(308, 296, 15, 1, 'Se requiere atención inmediata', 'El sistema de autenticación de dos factores está fallando.', '2024-09-24 20:05:00', 1),
+(309, 297, 15, 1, 'Se requiere atención inmediata', 'El servidor de correo no está funcionando.', '2024-09-24 20:53:03', 1),
+(310, 298, 15, 1, 'Se requiere atención inmediata', 'La red de datos está presentando problemas de conexión.', '2024-09-24 20:53:03', 1),
+(311, 299, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una ampliación de memoria RAM en su equipo.', '2024-09-24 20:53:03', 1),
+(312, 300, 15, 1, 'Se requiere atención inmediata', 'El servidor de impresión no está disponible.', '2024-09-24 20:53:03', 1),
+(313, 301, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede acceder remotamente al servidor.', '2024-09-24 20:53:03', 1),
+(314, 302, 15, 1, 'Se requiere atención inmediata', 'El sistema de gestión de usuarios no está respondiendo.', '2024-09-24 20:53:03', 1),
+(315, 303, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita soporte para configurar la VPN.', '2024-09-24 20:53:03', 1),
+(316, 304, 15, 1, 'Se requiere atención inmediata', 'El sistema de backup automático no está funcionando.', '2024-09-24 20:53:03', 1),
+(317, 305, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la eliminación de su cuenta del sistema.', '2024-09-24 20:53:03', 1),
+(318, 306, 15, 1, 'Se requiere atención inmediata', 'El sistema de facturación está generando facturas incorrectas.', '2024-09-24 20:53:03', 1),
+(319, 297, 15, 1, 'Se requiere atención inmediata', 'El servidor de correo no está funcionando.', '2024-09-24 20:55:55', 1),
+(320, 298, 15, 1, 'Se requiere atención inmediata', 'La red de datos está presentando problemas de conexión.', '2024-09-24 20:55:55', 1),
+(321, 299, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una ampliación de memoria RAM en su equipo.', '2024-09-24 20:55:55', 1),
+(322, 300, 15, 1, 'Se requiere atención inmediata', 'El servidor de impresión no está disponible.', '2024-09-24 20:55:55', 1),
+(323, 301, 15, 1, 'Se requiere atención inmediata', 'El usuario no puede acceder remotamente al servidor.', '2024-09-24 20:55:55', 1),
+(324, 302, 15, 1, 'Se requiere atención inmediata', 'El sistema de gestión de usuarios no está respondiendo.', '2024-09-24 20:55:55', 1),
+(325, 303, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita soporte para configurar la VPN.', '2024-09-24 20:55:55', 1),
+(326, 304, 15, 1, 'Se requiere atención inmediata', 'El sistema de backup automático no está funcionando.', '2024-09-24 20:55:55', 1),
+(327, 305, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita la eliminación de su cuenta del sistema.', '2024-09-24 20:55:55', 1),
+(328, 306, 15, 1, 'Se requiere atención inmediata', 'El sistema de facturación está generando facturas incorrectas.', '2024-09-24 20:55:55', 1),
+(329, 307, 15, 1, 'Se requiere atención inmediata', 'El servidor de correo no responde.', '2024-09-24 21:08:07', 1),
+(330, 308, 15, 1, 'Se requiere atención inmediata', 'El sistema de autenticación de usuarios está caído.', '2024-09-24 21:08:07', 1),
+(331, 309, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita más espacio de almacenamiento en su equipo.', '2024-09-24 21:08:07', 1),
+(332, 310, 15, 1, 'Se requiere atención inmediata', 'El firewall está bloqueando servicios críticos.', '2024-09-24 21:08:08', 1),
+(333, 311, 15, 1, 'Se requiere atención inmediata', 'Los usuarios no pueden acceder a la red de invitados.', '2024-09-24 21:08:08', 1),
+(334, 312, 15, 1, 'Se requiere atención inmediata', 'El sistema de copias de seguridad no se ha ejecutado correctamente.', '2024-09-24 21:08:08', 1),
+(335, 313, 15, 1, 'Se requiere atención inmediata', 'El servidor FTP no está accesible.', '2024-09-24 21:08:08', 1),
+(336, 314, 15, 1, 'Se requiere atención inmediata', 'La base de datos de usuarios no está respondiendo.', '2024-09-24 21:08:08', 1),
+(337, 315, 15, 1, 'Se requiere atención inmediata', 'El usuario solicita una actualización de hardware en su equipo.', '2024-09-24 21:08:08', 1),
+(338, 316, 15, 1, 'Se requiere atención inmediata', 'La red interna está experimentando caídas intermitentes.', '2024-09-24 21:08:08', 1);
 
 -- --------------------------------------------------------
 
@@ -752,12 +1192,12 @@ INSERT INTO `usuario` (`idUsuario`, `usuario`, `password`, `descripcion`, `idPer
 (9, 'USER0Usuario', '$2y$10$x1L47Pf5.UcEzhzwGSFtSOYzgLs2qsfuYTYt5CVVq1C5xW6GwuYb2', '', 9, 4, 2, 1, 1, '2024-09-05 01:31:36', NULL),
 (10, 'USER1Usuario', '$2y$10$x1L47Pf5.UcEzhzwGSFtSOYzgLs2qsfuYTYt5CVVq1C5xW6GwuYb2', '', 10, 1, 2, 1, 1, '2024-09-05 01:31:57', '2024-09-10 05:05:11'),
 (19, 'USER2Usuario', '$2y$10$QjdPXMiv0z6TuLIlDFsvdu0v4rXqh5csVlO9bn8gQ51VWV8p5.6..', '', 24, 1, 2, 1, 1, '2024-09-16 03:58:40', NULL),
-(27, 'USER10Usuario', '$2y$10$XQFnBsUO37BerrNyloGTsegegRYCIRo54YBeJBzcTts241BF6fRPS', '', 25, 1, 2, 1, 1, '2024-09-20 01:49:49', NULL),
 (28, 'Para QA', '$2y$10$nuPMjpNA4D.sxOzRE2mAJeFCs3fDRAqcRx9H4R3blh1Rd.JeyI8ti', '', 26, 5, 2, 1, 1, '2024-09-20 05:00:48', NULL),
-(33, 'qa qa edit', '$2y$10$Dy31fZSBUXfJEF0CbLhPjuefL620mFAYIempp4h8vD9bF8.bzvSc2', '', 27, 2, 2, 1, 1, '2024-09-21 02:16:07', '2024-09-21 02:17:00'),
+(33, 'qa qa edit', '$2y$10$af1HFLwrYUv4W1NBM0JW3uXhdxfy6w1syKgKJsHC0ktXXikjeAIfa', '', 27, 2, 2, 1, 1, '2024-09-21 02:16:07', '2024-09-21 02:17:00'),
 (34, 'erifuertessot+01@gmail.com', '$2y$10$k8gkokjNg3BfWZ1xUA3wUOByhye12Q4ekUTWpZ7EgI.7hci.joUzS', '', 28, 2, 2, 1, 1, '2024-09-21 06:41:05', NULL),
 (35, 'xacangas', '$2y$10$n7O6QnOOm7OduXFs.AYB9.vu0HpZpgh3KEyI4U65aRjo6R7bA8Syi', '', 29, 5, 4, 1, 1, '2024-09-22 19:06:57', NULL),
-(36, 'adolfo.merlo', '$2y$10$6PYN.8MGnzlr/3yCgc7YjeBbl4FXpgwDzGU.4Y7VMRxleDJeMXsOK', '', 30, 5, 3, 1, 1, '2024-09-22 19:28:26', NULL);
+(36, 'adolfo.merlo', '$2y$10$6PYN.8MGnzlr/3yCgc7YjeBbl4FXpgwDzGU.4Y7VMRxleDJeMXsOK', '', 30, 5, 3, 1, 1, '2024-09-22 19:28:26', NULL),
+(38, 'miguel.arcos', '$2y$10$La4lkRzlRz1lTDM7h6TFru//dj/7qfn1XUzXQ.z8G/m9EdKY2ipuu', '', 31, 1, 2, 1, 1, '2024-09-23 22:45:23', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -922,7 +1362,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `agente`
 --
 ALTER TABLE `agente`
-  MODIFY `idAgente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idAgente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `areausuario`
@@ -964,7 +1404,7 @@ ALTER TABLE `departamentoagente`
 -- AUTO_INCREMENT de la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
-  MODIFY `idEncuesta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEncuesta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `estadoticket`
@@ -994,7 +1434,7 @@ ALTER TABLE `nivelagente`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idPersona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `prioridad`
@@ -1018,25 +1458,25 @@ ALTER TABLE `sla`
 -- AUTO_INCREMENT de la tabla `temaayuda`
 --
 ALTER TABLE `temaayuda`
-  MODIFY `idTemaAyuda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idTemaAyuda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `idTicket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `idTicket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=327;
 
 --
 -- AUTO_INCREMENT de la tabla `ticketdetalle`
 --
 ALTER TABLE `ticketdetalle`
-  MODIFY `idTicketDetalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `idTicketDetalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=339;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restricciones para tablas volcadas
