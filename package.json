@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "install": "^0.13.0",
-    "ngx-quill": "^26.0.8",
-    "npm": "^10.8.3",
-    "quill": "^2.0.2",
-    "quill-2.0-dev": "^2.0.0-dev.3"
-  }
-}

@@ -191,3 +191,108 @@ function enviarEmailTicketCerrado($idTicket, $emailRecibe, $nombreRecibe)
         http_response_code(500);
     }
 }
+
+function enviarEmailTReapertura($idTicket, $emailRecibe, $nombreRecibe, $nombrequienAsignaTicket, $asunto)
+{
+    $mail = new PHPMailer(true);
+    try {
+        configurarMail($mail, $emailRecibe, $nombreRecibe);
+
+        // Mensaje y asunto
+        $mensaje = " El Ticket #$idTicket ha sido reaperturado por $nombrequienAsignaTicket.<br/>";
+        $mail->Subject = 'Ticket Reaperturado - HELPDESK IMBAUTO';
+        $body = <<<EOT
+          Hola $nombreRecibe,<br/>
+          $mensaje
+          <strong>De:</strong> $nombrequienAsignaTicket<br/>
+          <strong>Título:</strong> $asunto<br/>
+  EOT;
+        $mail->Body = $body;
+
+        // Cuerpo alternativo para clientes que no soportan HTML
+        $altBody = "Hola $nombreRecibe,\n$mensaje\nDe: $nombrequienAsignaTicket\nTítulo: $asunto";
+        $mail->AltBody = $altBody;
+
+        $mail->send();
+    } catch (Exception $e) {
+        http_response_code(500);
+    }
+}
+
+function enviarEmailTReaperturaUsuario($idTicket, $emailRecibe, $nombreRecibe)
+{
+    $mail = new PHPMailer(true);
+    try {
+        configurarMail($mail, $emailRecibe, $nombreRecibe);
+
+        // Mensaje y asunto
+        $mensaje = "Se reaperturó el Ticket #$idTicket.<br/>";
+        $mail->Subject = 'Ticket Reaperturado - HELPDESK IMBAUTO';
+        $body = <<<EOT
+          Hola $nombreRecibe,<br/>
+          $mensaje
+  EOT;
+        $mail->Body = $body;
+
+        // Cuerpo alternativo para clientes que no soportan HTML
+        $altBody = "Hola $nombreRecibe,\n$mensaje";
+        $mail->AltBody = $altBody;
+
+        $mail->send();
+        return $email;
+    } catch (Exception $e) {
+        http_response_code(500);
+    }
+}
+
+function enviarEmailTEscaladoUsuario($idTicket, $emailRecibe, $nombreRecibe)
+{
+    $mail = new PHPMailer(true);
+    try {
+        configurarMail($mail, $emailRecibe, $nombreRecibe);
+
+        // Mensaje y asunto
+        $mensaje = "Se escaló el Ticket #$idTicket.<br/>";
+        $mail->Subject = 'Ticket Escalado - HELPDESK IMBAUTO';
+        $body = <<<EOT
+          Hola $nombreRecibe,<br/>
+          $mensaje
+  EOT;
+        $mail->Body = $body;
+
+        // Cuerpo alternativo para clientes que no soportan HTML
+        $altBody = "Hola $nombreRecibe,\n$mensaje";
+        $mail->AltBody = $altBody;
+
+        $mail->send();
+    } catch (Exception $e) {
+        http_response_code(500);
+    }
+}
+
+function enviarEmailTReaperturadoAgente($idTicket, $emailRecibe, $nombreRecibe, $nombrequienAsignaTicket, $asunto)
+{
+    $mail = new PHPMailer(true);
+    try {
+        configurarMail($mail, $emailRecibe, $nombreRecibe);
+
+        // Mensaje y asunto
+        $mensaje = "El Ticket #$idTicket ha sido reaperturado por $nombrequienAsignaTicket.<br/>";
+        $mail->Subject = 'Ticket Reaperturado - HELPDESK IMBAUTO';
+        $body = <<<EOT
+          Hola $nombreRecibe,<br/>
+          $mensaje
+          <strong>Reaperturado por:</strong> $nombrequienAsignaTicket<br/>
+          <strong>Título:</strong> $asunto<br/>
+  EOT;
+        $mail->Body = $body;
+
+        // Cuerpo alternativo para clientes que no soportan HTML
+        $altBody = "Hola $nombreRecibe,\n$mensaje\nDe: $nombrequienAsignaTicket\nTítulo: $asunto";
+        $mail->AltBody = $altBody;
+
+        $mail->send();
+    } catch (Exception $e) {
+        http_response_code(500);
+    }
+}

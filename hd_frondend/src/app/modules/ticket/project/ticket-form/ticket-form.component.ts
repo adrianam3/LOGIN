@@ -38,12 +38,16 @@ export class TicketFormComponent implements OnInit {
     public agentes: any[] = [];
     public mensajes: any[] = [];
     public temasAyuda: any = [];
+    public displayModal: boolean = false;
+    public header: string = '';
 
     public ticketDetalleForm: FormGroup;
     public ticketDetalle: TicketDetalle;
     private idTicketDetalle: number;
     public tipoDetalle: string = '1'; // Valor predeterminado inicial Ticket - Abierto = 1
     public loading: boolean = false;
+    public nombreCompletoUsuario = '';
+    public emailUsuario = '';
 
     constructor(
         private messageService: MessageService,
@@ -53,7 +57,7 @@ export class TicketFormComponent implements OnInit {
         private fb: FormBuilder,
         private http: HttpClient,
         public validarRol: ValidarRolesService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadData();
@@ -215,7 +219,7 @@ export class TicketFormComponent implements OnInit {
             accept: () => {
                 this.router.navigate(['/ticket/ticket-list']);
             },
-            reject: () => {},
+            reject: () => { },
         });
     }
 
@@ -298,8 +302,10 @@ export class TicketFormComponent implements OnInit {
             fechaAtualizacion,
             fechaInicioAtencion,
             fechaCreacion,
-            fechaPrimeraRespuesta
+            fechaPrimeraRespuesta,
+            fechaReapertura
         } = data;
+        console.log(data);
         this.ticket = new Ticket();
         this.isEdicion = !!idTicket;
         this.bloquearEdicion = this.isEdicion; // Bloquear edición si es un modo de edición
@@ -307,15 +313,15 @@ export class TicketFormComponent implements OnInit {
         // Recuperar idUsuario de localStorage
         this.idUsuario = localStorage.getItem('idUsuario');
         this.email = localStorage.getItem('email');
-        this.nombreCompleto = `${localStorage.getItem(
-            'nombres'
-        )} ${localStorage.getItem('apellidos')}`;
+        this.nombreCompleto = `${localStorage.getItem('nombres' )} ${localStorage.getItem('apellidos')}`;
+        this.nombreCompletoUsuario = data.personaNombres + ' ' + data.personaApellidos;
+        this.emailUsuario = data.email;
 
         // 1 Administrador, 2 Usuario, 3 Agente, 4 Coordinador
         this.ticketForm = this.fb.group({
             idTicket: [idTicket],
-            emailUsuario: [this.email],
-            nombreUsuario: [this.nombreCompleto],
+            emailUsuario: [this.emailUsuario],
+            nombreUsuario: [this.nombreCompletoUsuario],
             titulo: [
                 titulo,
                 this.validarRol.administrador() || this.validarRol.usuario()
@@ -341,47 +347,48 @@ export class TicketFormComponent implements OnInit {
             sla: [
                 idSla,
                 this.validarRol.administrador() ||
-                this.validarRol.agente() ||
-                this.validarRol.coordinador()
+                    this.validarRol.agente() ||
+                    this.validarRol.coordinador()
                     ? Validators.required
                     : null,
             ],
             prioridad: [
                 idPrioridad,
                 this.validarRol.administrador() ||
-                this.validarRol.agente() ||
-                this.validarRol.coordinador()
+                    this.validarRol.agente() ||
+                    this.validarRol.coordinador()
                     ? Validators.required
                     : null,
             ],
             departamentoAgente: [
                 idDepartamentoA,
                 this.validarRol.administrador() ||
-                this.validarRol.agente() ||
-                this.validarRol.coordinador()
+                    this.validarRol.agente() ||
+                    this.validarRol.coordinador()
                     ? Validators.required
                     : null,
             ],
             estadoTicket: [
                 idEstadoTicket,
                 this.validarRol.administrador() ||
-                this.validarRol.agente() ||
-                this.validarRol.coordinador()
+                    this.validarRol.agente() ||
+                    this.validarRol.coordinador()
                     ? Validators.required
                     : null,
             ],
             agente: [
                 idAgente,
                 this.validarRol.administrador() ||
-                this.validarRol.agente() ||
-                this.validarRol.coordinador()
+                    this.validarRol.agente() ||
+                    this.validarRol.coordinador()
                     ? Validators.required
                     : null,
             ],
             fechaAtualizacion: [fechaAtualizacion],
             fechaInicioAtencion: [fechaInicioAtencion],
             fechaCreacion: [fechaCreacion],
-            fechaPrimeraRespuesta: [fechaPrimeraRespuesta]
+            fechaPrimeraRespuesta: [fechaPrimeraRespuesta],
+            fechaReapertura: [fechaReapertura]
         });
         // Escuchar cambios en el selector de SLA y actualizar idSla
         const slaControl = this.ticketForm.get('sla');
@@ -484,6 +491,7 @@ export class TicketFormComponent implements OnInit {
             const response = await lastValueFrom(
                 this.postData(formData, 'op=uno')
             );
+            console.log(response)
             this.formTicket(response);
             // const agenteSeleccionado = this.agentes.find((agente) => agente.idAgente == response.idAgente)
             // if (agenteSeleccionado)
@@ -589,38 +597,130 @@ export class TicketFormComponent implements OnInit {
         this.loading = true;
         if (this.ticketDetalleForm.valid) {
             const formData = this.createFormData(this.ticketDetalleForm.value);
-            console.log(this.ticketDetalleForm);
-            console.log(formData);
-
             try {
                 await lastValueFrom(
                     this.postTicketDetalleData(formData, 'op=insertar')
                 );
-                this.showToast(
-                    'success',
-                    'Éxito',
-                    'La operación se realizó correctamente.'
-                );
+                this.showToast('success',
+                    'Éxito', 'La operación se realizó correctamente.');
                 setTimeout(() => {
                     location.reload();
                 }, 400);
             } catch (error) {
                 console.error('Error:', error);
-                this.showToast(
-                    'error',
-                    'Error',
-                    'Ocurrió un error al realizar la operación.'
-                );
+                this.showToast('error', 'Error', 'Ocurrió un error al realizar la operación.');
+            } finally {
+                this.loading = false;
+            }
+        } else {
+            this.loading = false;
+            this.showToast('error', 'Error', 'Complete los campos obligatorios para guardar.');
+        }
+    }
+
+    public confirmReaperturaEscalamiento(opcion: number, ticket) {
+        let mensaje = '';
+        if (opcion === 1) {
+            mensaje = '¿Está seguro de Reaperturar el Ticket #' + ticket.idTicket + ' ?';
+        } else {
+            mensaje = '¿Está seguro de Escalar el Ticket #' + ticket.idTicket + ' ?';
+        }
+        this.confirmationService.confirm({
+            key: 'ticket',
+            header: 'Ticket',
+            message: mensaje,
+            accept: () => {
+                this.confirmarAccion(opcion);
+            },
+        });
+    }
+
+    // Reapertura --> Opcion = 1
+    // Escalar --> Opcion 2
+    async confirmarAccion(opcion: number) {
+        const fechaActual = new Date()
+            .toLocaleString('sv-SE', { timeZone: 'America/Guayaquil' })
+            .replace('T', ' ');
+        let operation: string = 'op=reaperturaEscalamiento';
+        this.loading = true;
+        if (this.ticketForm.valid) {
+            if (opcion === 1) {
+                this.ticketForm.get('idEstadoTicket').setValue(9);
+                this.ticketForm.patchValue({
+                    fechaReapertura: fechaActual,
+                });
+            } else {
+                this.ticketForm.get('idEstadoTicket').setValue(6);
+            }
+            console.log(this.ticketForm);
+            const formData = this.createFormData(this.ticketForm.value);
+            try {
+                await lastValueFrom(this.postData(formData, operation));
+                setTimeout(() => {
+                    this.showToast('success', 'Éxito', 'La operación se realizó correctamente.');
+                }, 200);
+            } catch (error) {
+                console.error('Error:', error);
+                this.showToast('error', 'Error', 'Ocurrió un error al realizar la operación.');
             } finally {
                 this.loading = false;
             }
         } else {
             this.loading = false;
             this.showToast(
-                'error',
-                'Error',
-                'Complete los campos obligatorios para guardar.'
-            );
+                'error', 'Error', 'Complete los campos obligatorios para guardar.');
+        }
+        this.displayModal = false;
+        // location.reload();
+        this.loadData();
+    }
+
+    public confirmEscalamientoTicket() {
+        this.displayModal = true;
+        this.header = 'Escalamiento Ticket';
+    }
+
+    public confirmCerrarTicket(ticket: any) {
+        if (ticket) {
+            this.confirmationService.confirm({
+                key: 'ticket',
+                header: 'Cerrar Ticket',
+                message: '¿Está seguro de Cerrar el Ticket #' + ticket.idTicket + ' ?',
+                accept: () => {
+                    const fechaActual = new Date()
+                        .toLocaleString('sv-SE', { timeZone: 'America/Guayaquil' })
+                        .replace('T', ' ');
+                    this.ticketForm.patchValue({
+                        fechaCierre: fechaActual,
+                    });
+                    this.ticketForm.patchValue({ idEstadoTicket: 4 });
+                    this.cerrarTicket('op=actualizar');
+                },
+            });
+        }
+    }
+
+    public async cerrarTicket(operation: string) {
+        this.loading = true;
+        if (this.ticketForm.valid) {
+            const formData = this.createFormData(this.ticketForm.value);
+            try {
+                await lastValueFrom(this.postData(formData, operation));
+                setTimeout(() => {
+                    this.showToast('success', 'Éxito', 'El Ticket se cerró correctamente.');
+                }, 200);
+            } catch (error) {
+                console.error('Error:', error);
+                this.showToast('error', 'Error', 'Ocurrió un error.'
+                );
+            } finally {
+                this.loading = false;
+                location.reload();
+            }
+        } else {
+            this.loading = false;
+            this.showToast(
+                'error', 'Error', 'Complete los campos obligatorios para guardar.');
         }
     }
 }

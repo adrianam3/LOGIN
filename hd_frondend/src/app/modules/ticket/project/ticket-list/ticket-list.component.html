@@ -6,7 +6,7 @@
     <div>
         <button class="mr-2" pButton label="Pendientes" icon="pi pi-list" (click)="filterTickets('all')"></button>
         <button class="mr-2" pButton label="Cerrados" icon="pi pi-list" (click)="filterTickets('closed')"></button>
-      </div>
+    </div>
     <div *ngIf="validarRol.administrador() || validarRol.usuario()">
         <p-button [raised]="true" severity="success" routerLink="/ticket/ticket-form/" label="Crear Ticket"
             icon="pi pi-plus" />
@@ -43,8 +43,8 @@
                     pSortableColumn="fechaAtualizacion" style="text-align: center;">
                     Actualizado en <p-sortIcon field="fechaAtualizacion" />
                 </th>
-                <th *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador()" pSortableColumn="descEstadoTicket"
-                    style="text-align: center;">
+                <th *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador() || validarRol.agente()"
+                    pSortableColumn="descEstadoTicket" style="text-align: center;">
                     Estado <p-sortIcon field="descEstadoTicket" />
                 </th>
                 <th pSortableColumn="titulo" style="min-width:5rem; text-align: center;">
@@ -78,7 +78,8 @@
                     style="text-align: center;">
                     <p-columnFilter type="text" field="fechaAtualizacion" [showClearButton]="false" />
                 </th>
-                <th *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador()" style="text-align: center;">
+                <th *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador() || validarRol.agente()"
+                    style="text-align: center;">
                     <p-columnFilter type="text" field="descEstadoTicket" [showClearButton]="false" />
                 </th>
                 <th style="text-align: center;">
@@ -110,7 +111,8 @@
                 <td *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
                     style="text-align: center;">
                     {{rowData.fechaAtualizacion}}</td>
-                <td *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador()" style="text-align: center;">
+                <td *ngIf="validarRol.administrador() || validarRol.usuario() || validarRol.coordinador() || validarRol.agente()"
+                    style="text-align: center;">
                     {{rowData.descEstadoTicket}}</td>
                 <td style="text-align: center;">{{rowData.titulo}}</td>
                 <td *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
@@ -126,24 +128,23 @@
                 <!-- <td style="text-align: center;">{{rowData.resueltoPrimerContacto}}</td> -->
                 <td *ngIf="validarRol.administrador() || validarRol.coordinador()" style="text-align: center;">
                     {{rowData.descAgente}}</td>
-                    <td style="text-align: center;">
-                        <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
-                            routerLink="/ticket/ticket-form/{{rowData.idTicket}}" pTooltip="Ver Ticket" />
-                        <p-button *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
-                            icon="pi pi-user-plus" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
-                            (click)="asignarAgente(rowData, rowData.idTicket, rowData.idDepartamentoA, rowData.idAgente, rowData.titulo)"
-                            pTooltip="Asignar Agente"></p-button>
-                        <p-button *ngIf="validarRol.administrador()" [disabled]="(rowData.idEstadoTicket !== '1')" icon="pi pi-ban" severity="danger" [rounded]="true"
-                            [outlined]="true" (click)="confirmEliminar(rowData)" pTooltip="Eliminar Ticket" />
-                        <p-button
-                            *ngIf="validarRol.usuario() && (rowData.idEncuesta === null && rowData.idEstadoTicket === '4')"
-                            icon="pi pi-thumbs-up" class="mr-2" severity="info" [rounded]="true" [outlined]="true"
-                            (click)="confirmEncuesta(rowData)" pTooltip="Responder Encuesta" />
-                        <p-button
-                            *ngIf="validarRol.usuario() && (rowData.idEncuesta !== null)"
-                            icon="pi pi-thumbs-up-fill" class="mr-2" severity="info" [rounded]="true" [outlined]="true"
-                            pTooltip="Encuesta Realizada" />
-                    </td>
+                <td style="text-align: center;">
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        routerLink="/ticket/ticket-form/{{rowData.idTicket}}" pTooltip="Ver Ticket" />
+                    <p-button *ngIf="validarRol.administrador() || validarRol.agente() || validarRol.coordinador()"
+                        icon="pi pi-user-plus" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                        (click)="asignarAgente(rowData, rowData.idTicket, rowData.idDepartamentoA, rowData.idAgente, rowData.titulo)"
+                        pTooltip="Asignar Agente"></p-button>
+                    <p-button *ngIf="validarRol.administrador()" [disabled]="(rowData.idEstadoTicket !== '1')"
+                        icon="pi pi-ban" severity="danger" [rounded]="true" [outlined]="true"
+                        (click)="confirmEliminar(rowData)" pTooltip="Eliminar Ticket" />
+                    <p-button
+                        *ngIf="validarRol.usuario() && (rowData.idEncuesta === null && rowData.idEstadoTicket === '4')"
+                        icon="pi pi-thumbs-up" class="mr-2" severity="info" [rounded]="true" [outlined]="true"
+                        (click)="confirmEncuesta(rowData)" pTooltip="Responder Encuesta" />
+                    <p-button *ngIf="validarRol.usuario() && (rowData.idEncuesta !== null)" icon="pi pi-thumbs-up-fill"
+                        class="mr-2" severity="info" [rounded]="true" [outlined]="true" pTooltip="Encuesta Realizada" />
+                </td>
             </tr>
         </ng-template>
     </p-table>
@@ -183,7 +184,8 @@
         </div>
 
         <div class="w-full flex justify-end mt-8" style="width: 100%; display: flex; justify-content: flex-end;">
-            <p-button class="mr-2" icon="pi pi-check" (click)="confirmarAsignarAgente('op=actualizaragente')" label="Actualizar"></p-button>
+            <p-button class="mr-2" icon="pi pi-check" (click)="confirmarAsignarAgente('op=actualizaragente')"
+                label="Actualizar"></p-button>
         </div>
     </form>
 </p-dialog>

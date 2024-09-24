@@ -216,6 +216,48 @@ switch ($_GET["op"]) {
         echo json_encode($datos);
         break;
 
+        case 'reaperturaEscalamiento':
+            $idTicket = $_POST["idTicket"];
+            $titulo = $_POST["titulo"];
+            $idDepartamentoA = $_POST["idDepartamentoA"];
+            $idAgente = $_POST["idAgente"];
+            $nombreUsuario = $_POST["nombreUsuario"] ? $_POST["nombreUsuario"] : NULL;
+            $fechaReapertura = $_POST["fechaReapertura"] ? $_POST["fechaReapertura"] : NULL;
+            $idEstadoTicket = $_POST["idEstadoTicket"];
+            $resultado = $ticket->uno($idTicket);
+            $ticketActual = $resultado->fetch_assoc();
+            $resultadoAgente = $agente->uno($idAgente);
+            $fila = $resultadoAgente->fetch_assoc();
+            if ($ticketActual['idAgente'] != $idAgente && $resultadoAgente && $titulo) {
+            // cuando el agente cambia se le notifica al nuevo
+                // enviarEmailAgenteAsignado(
+                //     idTicket: $idTicket,
+                //     emailRecibe: $fila['agenteEmail'],
+                //     nombreRecibe: $fila['agenteNombreCompleto'],
+                //     nombrequienAsignaTicket: $nombreUsuario,
+                //     asunto: $titulo
+                // );
+            } else {
+                // cuando el agente no cambia se le avisa de la reapertura
+                // enviarEmailTReaperturadoAgente(
+                //     emailRecibe: $fila['agenteEmail'],
+                //     nombreRecibe: $fila['agenteNombreCompleto'],
+                //     nombrequienAsignaTicket: $nombreUsuario,
+                //     asunto: $titulo
+                // );
+            }
+    
+            // Actualizar el ticket con los nuevos valores
+            $datos = $ticket->reaperturaEscalamiento(
+                $idTicket,
+                $idDepartamentoA,
+                $idAgente,
+                $idEstadoTicket,
+                $fechaReapertura
+            );
+            echo json_encode($datos);
+            break;
+
     case 'eliminar': //TODO: Procedimiento para eliminar un registro en la base de datos
         $idTicket = $_POST["idTicket"];
         $datos = array();

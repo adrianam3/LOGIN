@@ -49,19 +49,19 @@ class TicketDetalle
             $ticket = new Ticket;
             $resultado = $ticket->uno($idTicket);
             $ticketActual = $resultado->fetch_assoc();
-            // enviarEmailMensajeDetalleTicket(
-            //     idTicket:$idTicket, 
-            //     emailRecibe: $ticketActual['email'], 
-            //     nombreRecibe: $ticketActual['personaNombres'].' '.$ticketActual['personaApellidos'],
-            //     detalle: $detalle
-            // );
+            enviarEmailMensajeDetalleTicket(
+                idTicket:$idTicket, 
+                emailRecibe: $ticketActual['email'], 
+                nombreRecibe: $ticketActual['personaNombres'].' '.$ticketActual['personaApellidos'],
+                detalle: $detalle
+            );
 
-            // enviarEmailMensajeDetalleTicket(
-            //     idTicket:$idTicket, 
-            //     emailRecibe: $ticketActual['agenteEmail'],
-            //     nombreRecibe: $ticketActual['agenteNombres'].' '.$ticketActual['agenteApellidos'],
-            //     detalle: $detalle
-            // );
+            enviarEmailMensajeDetalleTicket(
+                idTicket:$idTicket, 
+                emailRecibe: $ticketActual['agenteEmail'],
+                nombreRecibe: $ticketActual['agenteNombres'].' '.$ticketActual['agenteApellidos'],
+                detalle: $detalle
+            );
 
             $con = new ClaseConectar();
             $con = $con->ProcedimientoParaConectar();

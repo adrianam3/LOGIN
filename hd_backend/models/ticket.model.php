@@ -22,22 +22,24 @@ class Ticket
            prioridad.nombre AS prioridadNombre,
            persona.nombres AS personaNombres,
            persona.apellidos AS personaApellidos,
+           persona.email,
            estadoTicket.nombre AS estadoTicketNombre,
            departamentoAgente.nombre AS departamentoANombre,
            agentePersona.nombres AS agenteNombres,
            agentePersona.apellidos AS agenteApellidos,
            CONCAT(agentePersona.nombres, ' ', agentePersona.apellidos) AS agenteNombreCompleto ,
            encuesta.idEncuesta   
-            FROM `ticket`
-            LEFT JOIN `sla` ON ticket.idSla = sla.idSla
-            LEFT JOIN `prioridad` ON ticket.idPrioridad = prioridad.idPrioridad
-            LEFT JOIN `usuario` ON ticket.idUsuario = usuario.idUsuario
-            LEFT JOIN `persona` ON usuario.idPersona = persona.idPersona
-            LEFT JOIN `estadoTicket` ON ticket.idEstadoTicket = estadoTicket.idEstadoTicket
-            LEFT JOIN `AgenteDepartamento` ON AgenteDepartamento.idAgente = ticket.idAgente AND AgenteDepartamento.idDepartamentoA = ticket.idDepartamentoA
-            LEFT JOIN `departamentoAgente` ON departamentoAgente.idDepartamentoA = ticket.idDepartamentoA
-            LEFT JOIN `agente` ON agente.idAgente = AgenteDepartamento.idAgente
-            LEFT JOIN `persona` AS agentePersona ON agente.idUsuario = agentePersona.idPersona
+            FROM ticket
+            LEFT JOIN sla ON ticket.idSla = sla.idSla
+            LEFT JOIN prioridad ON ticket.idPrioridad = prioridad.idPrioridad
+            LEFT JOIN usuario ON ticket.idUsuario = usuario.idUsuario
+            LEFT JOIN persona ON usuario.idPersona = persona.idPersona
+            LEFT JOIN estadoTicket ON ticket.idEstadoTicket = estadoTicket.idEstadoTicket
+            LEFT JOIN AgenteDepartamento ON AgenteDepartamento.idAgente = ticket.idAgente AND AgenteDepartamento.idDepartamentoA = ticket.idDepartamentoA
+            LEFT JOIN departamentoAgente ON departamentoAgente.idDepartamentoA = ticket.idDepartamentoA
+            LEFT JOIN agente ON agente.idAgente = AgenteDepartamento.idAgente
+            left JOIN usuario as usp on usp.idUsuario=agente.idUsuario
+            left JOIN persona AS agentePersona ON agentePersona.idPersona = usp.idPersona
             LEFT JOIN  encuesta as encuesta on encuesta.idTicket=ticket.idTicket
             $sentencia
             ";
@@ -129,7 +131,8 @@ GROUP BY departamentoAgente.nombre;
         LEFT JOIN `AgenteDepartamento` ON AgenteDepartamento.idAgente = ticket.idAgente AND AgenteDepartamento.idDepartamentoA = ticket.idDepartamentoA
         LEFT JOIN `departamentoAgente` ON departamentoAgente.idDepartamentoA = ticket.idDepartamentoA
         LEFT JOIN `agente` ON agente.idAgente = AgenteDepartamento.idAgente
-        LEFT JOIN `persona` AS agentePersona ON agente.idUsuario = agentePersona.idPersona
+        left JOIN usuario as usp on usp.idUsuario=agente.idUsuario
+        left JOIN persona AS agentePersona ON agentePersona.idPersona = usp.idPersona
         WHERE `idTicket`=$idTicket
         ";
         $datos = mysqli_query($con, $cadena);
@@ -287,6 +290,57 @@ GROUP BY departamentoAgente.nombre;
                         `idAgente`='$idAgente',
                         `idEstadoTicket`='$idEstadoTicket', 
                         `fechaAtualizacion`=" . ($fechaAtualizacion && $fechaAtualizacion != 'null' ? "'$fechaAtualizacion'" : "NULL") . "
+                        WHERE `idTicket`=$idTicket";
+            if (mysqli_query($con, $cadena)) {
+                return $idTicket;
+            } else {
+                return $con->error;
+            }
+        } catch (Exception $th) {
+            http_response_code(500);
+            return $th->getMessage();
+        } finally {
+            $con->close();
+        }
+    }
+
+    public function reaperturaEscalamiento(
+        $idTicket,
+        $idDepartamentoA,
+        $idAgente,
+        $idEstadoTicket,
+        $fechaReapertura
+    ) // Update ticket set ... where id = $idTicket
+    {
+        try {
+            // $estadoTicket = new EstadoTicket;
+            // $idEstadoTicket = $estadoTicket->idByEstado('Asignado');
+            // $resultado = $ticket->uno($idTicket);
+            // $ticketActual = $resultado->fetch_assoc();
+            if($idEstadoTicket == 9) {
+                // enviarEmailTReaperturaUsuario(
+                //     idTicket:$idTicket,
+                //     emailRecibe: $ticketActual['email'],
+                //     nombreRecibe: $ticketActual['personaNombres'].' '.$ticketActual['personaApellidos'],
+                // );
+            } else if($idEstadoTicket == 6) {
+                // enviarEmailTEscaladoUsuario(
+                //     idTicket:$idTicket,
+                //     emailRecibe: $ticketActual['email'],
+                //     nombreRecibe: $ticketActual['personaNombres'].' '.$ticketActual['personaApellidos'],
+                // ); 
+            }
+
+            $con = new ClaseConectar();
+            $con = $con->ProcedimientoParaConectar();
+            date_default_timezone_set('America/Guayaquil');
+            $fechaAtualizacion = date('Y-m-d H:i:s');
+            $cadena = "UPDATE `ticket` SET 
+                        `idDepartamentoA`='$idDepartamentoA',
+                        `idAgente`='$idAgente',
+                        `idEstadoTicket`='$idEstadoTicket', 
+                        `fechaAtualizacion`=" . ($fechaAtualizacion && $fechaAtualizacion != 'null' ? "'$fechaAtualizacion'" : "NULL") . ",
+                        `fechaReapertura`=" . ($fechaReapertura ? "'$fechaReapertura'" : "NULL") . "
                         WHERE `idTicket`=$idTicket";
             if (mysqli_query($con, $cadena)) {
                 return $idTicket;
