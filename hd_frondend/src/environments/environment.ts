@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:4200/api'
+  // apiUrl: 'http://localhost/helpdesk-g11-pi/hd_backend'
 };
 
 /*

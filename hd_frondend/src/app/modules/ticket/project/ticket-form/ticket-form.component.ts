@@ -265,6 +265,14 @@ export class TicketFormComponent implements OnInit {
                 await this.getTicketByCodigo(this.idTicket);
                 await this.formTicketDetalle();
             } else {
+                console.log('ingreso aquiiii');
+        // Recuperar idUsuario de localStorage
+        this.idUsuario = localStorage.getItem('idUsuario');
+        this.email = localStorage.getItem('email');
+        this.nombreCompletoUsuario = `${localStorage.getItem('nombres' )} ${localStorage.getItem('apellidos')}`;
+        // this.nombreCompletoUsuario = data.personaNombres + ' ' + data.personaApellidos;
+        this.emailUsuario = this.email;
+        console.log(this.nombreCompletoUsuario)
                 this.formTicket({
                     idTicket: '',
                     titulo: '',
@@ -281,6 +289,8 @@ export class TicketFormComponent implements OnInit {
                     fechaInicioAtencion: '',
                     fechaAtualizacion: '',
                     fechaCreacion: '',
+                    emailUsuario: this.emailUsuario,
+                    nombreUsuario: this.nombreCompletoUsuario,
                 });
             }
         });
@@ -309,13 +319,18 @@ export class TicketFormComponent implements OnInit {
         this.ticket = new Ticket();
         this.isEdicion = !!idTicket;
         this.bloquearEdicion = this.isEdicion; // Bloquear edición si es un modo de edición
-
         // Recuperar idUsuario de localStorage
         this.idUsuario = localStorage.getItem('idUsuario');
         this.email = localStorage.getItem('email');
         this.nombreCompleto = `${localStorage.getItem('nombres' )} ${localStorage.getItem('apellidos')}`;
+       
+        if(idTicket) {
         this.nombreCompletoUsuario = data.personaNombres + ' ' + data.personaApellidos;
         this.emailUsuario = data.email;
+        } else {
+            this.nombreCompletoUsuario = this.nombreCompleto;
+        this.emailUsuario = this.email;
+        }
 
         // 1 Administrador, 2 Usuario, 3 Agente, 4 Coordinador
         this.ticketForm = this.fb.group({
@@ -517,6 +532,8 @@ export class TicketFormComponent implements OnInit {
                     .setValue(fechaActual);
             }
             this.ticketForm.get('fechaAtualizacion').setValue(fechaActual);
+            console.log('al guardar ')
+            console.log(this.ticketForm.value)
             const formData = this.createFormData(this.ticketForm.value);
             try {
                 await lastValueFrom(this.postData(formData, operation));
