@@ -1,0 +1,19 @@
+<div class="card card-w-title" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <i class="pi pi-user"></i>
+        <span style="font-size: 15px; margin-left: 5px;"><b>USUARIOS</b></span>
+    </div>
+    <div>
+        <p-button [raised]="true" severity="success" routerLink="/usuario/usuario-form/" label="Nuevo Usuario"
+            icon="pi pi-plus" />
+    </div>
+</div>
+
+<div class="card card-w-title">
+   
+</div>
+<p-confirmDialog header key="usuario" acceptLabel="Si" rejectLabel="No" icon="pi pi-exclamation-triangle"
+    [closable]="false" [closeOnEscape]="false" [style]="{width: '450px'}" acceptButtonStyleClass="p-button-text"
+    rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-toast></p-toast>
